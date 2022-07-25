@@ -1,0 +1,431 @@
+<%- include("../partials/header") %>
+
+<body>
+
+  <!-- <body data-layout="horizontal"> -->
+
+  <!-- Begin page -->
+  <div id="layout-wrapper">
+    <%- include("../partials/top-nav") %>
+    <%- include("../partials/sidemenu") %>
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+      <div class="page-content">
+        <div class="container-fluid">
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18 text-capitalize"><%= getUser[0].fullName %> Trip Details</h4>
+
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                    <li class="breadcrumb-item active text-capitalize"><%= getUser[0].fullName %> Profile</li>
+                  </ol>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm order-2 order-sm-1">
+                      <div class="d-flex align-items-start mt-3 mt-sm-0">
+                        <div class="flex-shrink-0">
+                          <div class="avatar-xl me-3">
+                            <% if(getUser[0].profilePicture.value){ %>
+                            <img src="data:<%= getUser[0].profilePicture.mimeType %>;base64, <%= getUser[0].profilePicture.value %>" alt="user" alt="" class="img-fluid rounded-circle d-block">
+                            <% }else{ %>
+                            <img src="/img/avatar.jpg" alt="" class="img-fluid rounded-circle d-block">
+                            <% } %>
+                          </div>
+                        </div>
+                        <div class="flex-grow-1">
+                          <div>
+                            <h5 class="font-size-16 mb-1 text-capitalize"><%= getUser[0].name %></h5>
+                            <p class="text-muted font-size-13 text-capitalize"><%= getUser[0].email.value %></p>
+
+                            <div class="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
+                              <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i><%= getUser[0].mobile.value %></div>
+                              <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>
+                                <%if(getUser[0].status.account==='Approved' ){ %>
+                                <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                  <%= getUser[0].status.account %>
+                                </button>
+                                <% } else if(getUser[0].status.account==='Pending' ){ %>
+                                <button class="btn btn-soft-primary waves-effect waves-light btn-sm">
+                                  <%= getUser[0].status.account %>
+                                </button>
+                                <% } else if(getUser[0].status.account==='Blocked' || getUser[0].status.account==='Deleted'){ %>
+                                <button class="btn btn-soft-danger waves-effect waves-light btn-sm">
+                                  <%= getUser[0].status.account %>
+                                </button>
+                                <% } %>
+                              </div>
+                              <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>
+                                <%if(getUser[0].status.trip ==='Online' ){ %>
+                                <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                  <%= getUser[0].status.trip %>
+                                </button>
+                                <% } else{ %>
+                                <button class="btn btn-soft-danger waves-effect waves-light btn-sm">
+                                  <%= getUser[0].status.trip %>
+                                </button>
+                                <% } %>
+                              </div>
+                              <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>
+                                <%= moment(getUser[0].createdAt).format('Do MMMM,YYYY') %>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-auto order-1 order-sm-2">
+                      <div class="d-flex align-items-start justify-content-end gap-2">
+                        <div>
+                          <a href="/view-rider/<%= getUser[0].id %>" class="btn btn-primary btn-block mb-2">Back</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- end card body -->
+              </div>
+              <!-- end card -->
+
+              <div class="">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title mb-0">Rider Trip Details</h4>
+                  </div>
+                  <div class="card-body">
+                    <div id="progrss-wizard" class="twitter-bs-wizard">
+                      <ul class="twitter-bs-wizard-nav nav nav-pills nav-justified">
+                        <li class="nav-item">
+                          <a href="#progress-user" class="nav-link" data-toggle="tab">
+                            <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="User Details">
+                              <i class="bx bx-user"></i>
+                            </div>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="#progress-trip" class="nav-link" data-toggle="tab">
+                            <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Trip Details">
+                              <i class="fa fa-map"></i>
+                            </div>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                          <a href="#progress-rider" class="nav-link" data-toggle="tab">
+                            <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Rider Details">
+                              <i class="fa fa-motorcycle"></i>
+                            </div>
+                          </a>
+                        </li>
+                      </ul>
+                      <!-- wizard-nav -->
+
+                      <div id="bar" class="progress mt-4 col-8 offset-2">
+                        <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated"></div>
+                      </div>
+                      <div class="tab-content twitter-bs-wizard-tab-content">
+                        <div class="tab-pane" id="progress-user">
+                          <div class="text-center mb-4">
+                            <h5>Rider Details</h5>
+                            <p class="card-title-desc"></p>
+                            <div class="pb-0">
+                              <% if(getUser[0].profilePicture.value){ %>
+                              <img src="data:<%= getUser[0].profilePicture.mimeType %>;base64, <%= getUser[0].profilePicture.value %>" alt="" class="rounded-circle header-profile-user">
+                              <% }else{ %>
+                              <img src="/img/avatar.jpg" alt="" class="rounded-circle header-profile-user">
+                              <% } %>
+                            </div>
+                            <div class="py-2">
+                              <p class="clearfix">
+                                <span class="float-left">
+                                  Name:
+                                </span>
+                                <span class="float-right text-muted">
+                                  <b><%= getUser[0].name %></b>
+                                </span>
+                              </p>
+                              <p class="clearfix">
+                                <span class="float-left">
+                                  Email
+                                  Address:
+                                </span>
+                                <span class="float-right text-muted">
+                                  <b><%= getUser[0].email.value %></b>
+                                </span>
+                              </p>
+                              <p class="clearfix">
+                                <span class="float-left">
+                                  Phone
+                                  Number:
+                                </span>
+                                <span class="float-right text-muted">
+                                  <b><%= getUser[0].mobile.value %></b>
+                                </span>
+                              </p>
+                              <p class="clearfix">
+                                <span class="float-left">
+                                  Account Status:
+                                </span>
+                                <span class="float-right text-muted">
+                                  <b>
+                                    <%if(getUser[0].status.account==='Approved' ){ %>
+                                    <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                      <%= getUser[0].status.account %>
+                                    </button>
+                                    <% } else if(getUser[0].status.account==='Pending' ){ %>
+                                    <button class="btn btn-soft-primary waves-effect waves-light btn-sm">
+                                      <%= getUser[0].status.account %>
+                                    </button>
+                                    <% } else if(getUser[0].status.account==='Blocked' || getUser[0].status.account==='Deleted'){ %>
+                                    <button class="btn btn-soft-danger waves-effect waves-light btn-sm">
+                                      <%= getUser[0].status.account %>
+                                    </button>
+                                    <% } %>
+                                  </b>
+                                </span>
+                              </p>
+                              <p class="clearfix">
+                                <span class="float-left">
+                                  Rider Status:
+                                </span>
+                                <span class="float-right text-muted">
+                                  <b>
+                                    <%if(getUser[0].status.trip ==='Online' ){ %>
+                                    <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                      <%= getUser[0].status.trip %>
+                                    </button>
+                                    <% } else{ %>
+                                    <button class="btn btn-soft-danger waves-effect waves-light btn-sm">
+                                      <%= getUser[0].status.trip %>
+                                    </button>
+                                    <% } %>
+                                  </b>
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane" id="progress-rider">
+                          <div>
+                            <div class="text-center mb-4">
+                              <h5>User Details</h5>
+                              <p class="card-title-desc"></p>
+                              <% if(trip[0].userData.id) {%>
+                              <div class="pb-0">
+                                <% if(trip[0].userData.profilePicture.value){ %>
+                                <img src="data:<%= trip[0].userData.profilePicture.mimeType %>;base64, <%= trip[0].userData.profilePicture.value %>" alt="" class="rounded-circle header-profile-user">
+                                <% }else{ %>
+                                <img src="/img/avatar.jpg" alt="" class="rounded-circle header-profile-user">
+                                <% } %>
+                              </div>
+                              <div class="py-2">
+                                <p class="clearfix">
+                                  <span class="float-left">
+                                    Name:
+                                  </span>
+                                  <span class="float-right text-muted">
+                                    <strong><%= trip[0].userData.name %></strong>
+                                  </span>
+                                </p>
+                                <p class="clearfix">
+                                  <span class="float-left">
+                                    Email
+                                    Address:
+                                  </span>
+                                  <span class="float-right text-muted">
+                                    <b><%= trip[0].userData.email %></b>
+                                  </span>
+                                </p>
+                                <p class="clearfix">
+                                  <span class="float-left">
+                                    Phone
+                                    Number:
+                                  </span>
+                                  <span class="float-right text-muted">
+                                    <b><%= trip[0].userData.mobile  %></b>
+                                  </span>
+                                </p>
+                              </div>
+                              <% } %>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="tab-pane" id="progress-trip">
+                          <div>
+                            <div class="text-center mb-4">
+                              <h5>Trip Details</h5>
+                              <p class="card-title-desc"></p>
+
+                              <div class="py-2">
+                                <p class="clearfix">
+                                  <span class="float-left">
+                                    Description:
+                                  </span>
+                                  <span class="float-right text-muted">
+                                    <b><%= trip[0].description %></b>
+                                  </span>
+                                </p>
+                                <p class="clearfix">
+                                  <span class="float-left">
+                                    ETA:
+                                  </span>
+                                  <span class="float-right text-muted">
+                                    <b><%= trip[0].ETA.text %></b>
+                                  </span>
+                                </p>
+                                <p class="clearfix">
+                                  <span class="float-left">
+                                    Payment Type:
+                                  </span>
+                                  <span class="float-right text-muted">
+                                    <b>
+                                      <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                        <%= trip[0].paymentType %>
+                                      </button>
+                                    </b>
+                                  </span>
+                                </p>
+                                <p class="clearfix">
+                                  <span class="float-left">
+                                    Price:
+                                  </span>
+                                  <span class="float-right text-success">
+                                    <b><%= trip[0].price %></b>
+                                  </span>
+                                </p>
+                                <p class="clearfix">
+                                  <span class="float-left">
+                                    Status:
+                                  </span>
+                                  <span class="float-right text-muted">
+                                    <b>
+                                      <%if(trip[0].status==='Completed' || trip[0].status==='Accepted'){ %>
+                                      <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                        <%= trip[0].status %>
+                                      </button>
+                                      <% } else if(trip[0].status==='Pending' ||  trip[0].status==='Ongoing' ){ %>
+                                      <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                        <%= trip[0].status %>
+                                      </button>
+                                      <% } else if(trip[0].status==='Blocked' || trip[0].status==='Cancelled'){ %>
+                                      <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                                        <%= trip[0].status %>
+                                      </button>
+                                      <% } %>
+                                    </b>
+                                  </span>
+                                </p>
+
+                                <p class="clearfix">
+                                  <span class="float-left">
+                                    Payment Status:
+                                  </span>
+                                  <span class="float-right">
+                                    <b>
+                                      <%if(trip[0].paymentStatus==='Paid'){ %>
+                                      <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                        <%= trip[0].paymentStatus %>
+                                      </button>
+                                      <% } else{ %>
+                                      <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                                        <%= trip[0].paymentStatus %>
+                                      </button>
+                                      <% } %>
+                                    </b>
+                                  </span>
+                                </p>
+                                <p class="clearfix">
+                                  <span class="float-left">
+                                    From:
+                                  </span>
+                                  <span class="float-right text-muted">
+                                    <b><%= trip[0].origin.text %></b>
+                                  </span>
+                                </p>
+                                <p class="clearfix">
+                                  <span class="float-left">
+                                    To:
+                                  </span>
+                                  <span class="float-right text-muted">
+                                    <b><%= trip[0].destination.text %></b>
+                                  </span>
+                                </p>
+                                <p class="clearfix">
+                                  <span class="float-left">
+                                    Distance:
+                                  </span>
+                                  <span class="float-right text-muted">
+                                    <b><%= trip[0].distance.text %></b>
+                                  </span>
+                                </p>
+                                <p class="clearfix">
+                                  <span class="float-left">
+                                    Booked
+                                    On:
+                                  </span>
+                                  <span class="float-right text-muted">
+                                    <b><%= moment(trip[0].createdAt).format('Do MMMM,YYYY') %></b>
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end card body -->
+                </div>
+                <!-- end card -->
+              </div>
+              <!-- end tab content -->
+            </div>
+          </div>
+
+
+        </div>
+        <!-- container-fluid -->
+      </div>
+      <!-- End Page-content -->
+    </div>
+    <!-- end main content-->
+
+  </div>
+  <!-- END layout-wrapper -->
+
+
+  <!-- Right Sidebar -->
+  <!-- /Right-bar -->
+
+  <%- include("../partials/footer") %>
+  <!-- Right bar overlay-->
+  <div class="rightbar-overlay"></div>
+
+
+  <%- include("../partials/script") %>
+</body>
+
+<script>
+  $(document).ready(function() {
+    $('table.table-bordered').DataTable();
+  });
+</script>
+<!-- Mirrored from themesbrand.com/minia/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Sep 2021 12:48:41 GMT -->
+
+</html>

@@ -1,0 +1,24 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+<% if(messages.error){ %>
+    <script>
+        console.log("<%= messages.error %>")
+      toastr.error("<%= messages.error %>")
+    </script>
+  <% } %>
+  
+<% if(messages.success){ %>
+    <script>
+      toastr.success("<%= messages.success %>")
+    </script>
+  <% } %>
+  <% if(messages.warning){ %>
+      <script>
+        toastr.warning("<%= messages.warning %>")
+      </script>
+    <% } %>
+    <% if(messages.info){ %>
+        <script>
+          toastr.info("<%= messages.info %>")
+        </script>
+      <% } %>
+</html>

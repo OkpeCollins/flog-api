@@ -1,0 +1,185 @@
+<%- include("../partials/header") %>
+
+<body>
+
+  <style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 90px;
+      height: 34px;
+    }
+
+    .switch input {
+      display: none;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      background-color: gray;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked+.slider {
+      background-color: #04AA6D;
+    }
+
+    input:checked {
+      background-color: #04AA6D;
+    }
+
+    input:focus+.slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(55px);
+    }
+
+    /*------ ADDED CSS ---------*/
+    .slider:after {
+      content: 'OFF';
+      color: white;
+      font-size: 15px;
+      display: block;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      font-family: Verdana, sans-serif;
+    }
+
+    input:checked+.slider:after {
+      content: 'ON';
+      font-size: 15px;
+    }
+
+    /*--------- END --------*/
+  </style>
+  <!-- <body data-layout="horizontal"> -->
+
+  <!-- Begin page -->
+  <div id="layout-wrapper">
+    <%- include("../partials/top-nav") %>
+    <%- include("../partials/sidemenu") %>
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+      <div class="page-content">
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">Create Coupon Code</h4>
+
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Create Coupon Code</li>
+                  </ol>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- end page title -->
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">Create New Coupon Codes</h4>
+                <div class="flex-shrink-0">
+                  <a href="coupon-codes" class="btn btn-primary">Back</a>
+                  <!-- Button trigger modal -->
+                </div>
+              </div><!-- end card header -->
+
+              <div class="card-body px-5">
+                <form method="POST" action="/create-coupon-codes">
+                  <div class="mb-3">
+                    <label class="form-label" for="formrow-firstname-input">Coupon Code</label>
+                    <input type="text" class="form-control" name="code" placeholder="Enter Coupon code">
+                    <% if (error.code) { %>
+                    <label class="error"><%= error.code.msg %></label>
+                    <% } %>
+                  </div>
+
+                  <div class="mb-3" style="display:none">
+                    <label class="form-label" for="formrow-firstname-input">Status</label>
+                    <div class="col-md-12">
+                      <span class="col-6 col-sm-6">
+                        <label class="switch">
+                          <input type="checkbox">
+                          <div class="slider round"></div>
+                        </label>
+                      </span>
+                      <% if (error.code) { %>
+                      <label class="error"><%= error.code.msg %></label>
+                      <% } %>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="formrow-firstname-input">Coupon Code Percentage Discount</label>
+                    <input type="number" class="form-control" name="percentage" placeholder="50%">
+                    <% if (error.percentage) { %>
+                    <label class="error"><%= error.percentage.msg %></label>
+                    <% } %>
+                  </div>
+
+                  <div class="col-md-12">
+                    <button class="btn btn-success" type="submit">Create</button>
+                  </div>
+                </form>
+              </div>
+              <!-- end card body -->
+            </div>
+            <!-- end card -->
+          </div>
+        </div>
+        <!-- container-fluid -->
+      </div>
+      <!-- End Page-content -->
+    </div>
+    <!-- end main content-->
+
+  </div>
+  <!-- END layout-wrapper -->
+
+
+  <!-- Right Sidebar -->
+  <!-- /Right-bar -->
+
+  <%- include("../partials/footer") %>
+  <!-- Right bar overlay-->
+  <div class="rightbar-overlay"></div>
+
+
+  <%- include("../partials/script") %>
+</body>
+
+</html>

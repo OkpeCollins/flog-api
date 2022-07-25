@@ -1,0 +1,206 @@
+<%- include("../partials/header") %>
+
+<body>
+
+  <!-- <body data-layout="horizontal"> -->
+
+  <!-- Begin page -->
+  <div id="layout-wrapper">
+    <%- include("../partials/top-nav") %>
+    <%- include("../partials/sidemenu") %>
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+      <div class="page-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">Edit Rider</h4>
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Edit Rider</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                  </ol>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- end page title -->
+          <div class="col-xl-12">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title mb-0">Update <%= getUser.fullName %> Profile</h4>
+                    <div class="col-sm-auto order-1 order-sm-2">
+                      <div class="d-flex align-items-start justify-content-end gap-2">
+                        <div>
+                          <a href="/view-fleet/<%= getUser.id %>" class="btn btn-soft-success btn-block mb-2">Back To Profile</a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                  <div id="progrss-wizard" class="twitter-bs-wizard">
+                    <ul class="twitter-bs-wizard-nav nav nav-pills nav-justified">
+                      <li class="nav-item">
+                        <a href="#progress-profile" class="nav-link" data-toggle="tab">
+                          <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Profile">
+                            <i class="bx bx-user"></i>
+                          </div>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#progress-bank-detail" class="nav-link" data-toggle="tab">
+                          <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Bank Details">
+                            <i class="bx bxs-bank"></i>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                    <!-- wizard-nav -->
+
+                    <div id="bar" class="progress mt-4">
+                      <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"></div>
+                    </div>
+                    <form method="POST" action="/admin-edit-fleet" enctype="multipart/form-data">
+                      <div class="tab-content twitter-bs-wizard-tab-content">                      
+                        <input type="hidden" name="id" class="form-control" id="progresspill-firstname-input" value="<%= getUser.id %>">
+                        <div class="tab-pane" id="progress-profile">
+                          <div class="text-center mb-4">
+                            <h5><%= getUser.fullName %> Profile</h5>
+                            <p class="card-title-desc">Fill all information below</p>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <div class="mb-3">
+                                <label for="progresspill-firstname-input">No of Bikes</label>
+                                <input type="text" class="form-control" id="progresspill-firstname-input" disabled value="<%if(getUser.bikes){ %><%= getUser.bikes %><% }else{ %>0 Bikes<% } %>">
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="mb-3">
+                                <label for="progresspill-firstname-input">Full Name</label>
+                                <input type="text" class="form-control" id="progresspill-firstname-input" disabled value="<%= getUser.companyName %>">
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="mb-3">
+                                <label for="progresspill-email-input">Email</label>
+                                <input type="email" class="form-control" id="progresspill-email-input" disabled value="<%= getUser.email.value %>">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="mb-3">
+                                <label for="progresspill-phoneno-input">Phone</label>
+                                <input type="text" class="form-control" id="progresspill-phoneno-input" disabled value="<%= getUser.mobile.value %>">
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="mb-3">
+                                <label for="progresspill-email-input">Account Status</label>
+                                <select class="form-control" name="status" disabled>
+                                  <option value="Pending" <%if(getUser.status ==='Pending' ){ %> selected <%} %>>Pending</option>
+                                  <option value="Approved" <%if(getUser.status ==='Approved'){ %> selected <% } %>>Approved</option>
+                                  <option value="Blocked" <%if(getUser.status ==='Blocked' ){ %> selected <%} %>>Blocked</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="mb-3">
+                                <label for="progresspill-phoneno-input">Reg Number</label>
+                                <input type="text" class="form-control" id="progresspill-phoneno-input" name="RGNumber" value="<%= getUser.RGNumber %>">
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="mb-3">
+                                <label for="progresspill-phoneno-input">City</label>
+                                <input type="text" class="form-control" id="progresspill-phoneno-input" name="city" value="<%= getUser.city %>">
+                              </div>
+                            </div>
+                          </div>
+                          <ul class="pager wizard twitter-bs-wizard-pager-link">
+                            <li class="next"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()">Next <i class="bx bx-chevron-right ms-1"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="progress-bank-detail">
+                          <div>
+                            <div class="text-center mb-4">
+                              <h5>Bank Details</h5>
+                              <p class="card-title-desc"></p>
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="mb-3">
+                                  <label for="progresspill-namecard-input" class="form-label">Bank Name</label>
+                                  <input type="text" class="form-control" name="bankName" value="<%=getUser.accountDetails.bankName%>">
+                                </div>
+                              </div>
+
+                              <div class="col-lg-6">
+                                <div class="mb-3">
+                                  <label for="progresspill-namecard-input" class="form-label">Account Name</label>
+                                  <input type="text" class="form-control" name="accountName" value="<%=getUser.accountDetails.accountName%>">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="mb-3">
+                                  <label for="progresspill-namecard-input" class="form-label">Account Number</label>
+                                  <input type="number" class="form-control" name="accountNumber" value="<%=getUser.accountDetails.accountNumber%>">
+                                </div>
+                              </div>
+                            </div>
+                            <ul class="pager wizard twitter-bs-wizard-pager-link">
+                              <li class="previous"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()"><i class="bx bx-chevron-left me-1"></i> Previous</a></li>
+                              <li class="float-end"><button type="submit" class="btn btn-primary">Update Changes</button></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <!-- end card body -->
+              </div>
+              <!-- end card -->
+            </div>
+            <!-- end card -->
+          </div>
+        </div>
+        <!-- container-fluid -->
+      </div>
+      <!-- End Page-content -->
+    </div>
+    <!-- end main content-->
+
+  </div>
+  <!-- END layout-wrapper -->
+
+
+  <!-- Right Sidebar -->
+  <!-- /Right-bar -->
+
+  <%- include("../partials/footer") %>
+  <!-- Right bar overlay-->
+  <div class="rightbar-overlay"></div>
+
+
+  <%- include("../partials/script") %>
+</body>
+
+<script>
+  $(document).ready(function() {
+    $('table.table-bordered').DataTable();
+  });
+</script>
+<!-- Mirrored from themesbrand.com/minia/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Sep 2021 12:48:41 GMT -->
+
+</html>

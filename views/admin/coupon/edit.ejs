@@ -1,0 +1,92 @@
+<%- include("../partials/header") %>
+
+<body>
+  <div id="layout-wrapper">
+    <%- include("../partials/top-nav") %>
+    <%- include("../partials/sidemenu") %>
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+      <div class="page-content">
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">Edit Coupon Code</h4>
+
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Edit Coupon Code</li>
+                  </ol>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- end page title -->
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">Edit <%= coupon[0].code %> Coupon Code</h4>
+                <div class="flex-shrink-0">
+                  <a href="/coupon-codes" class="btn btn-primary">Back</a>
+                  <!-- Button trigger modal -->
+                </div>
+              </div><!-- end card header -->
+
+              <div class="card-body px-5">
+                <form method="POST" action="/edit-coupon">
+                  <div class="mb-3">
+                    <label class="form-label" for="formrow-firstname-input">Coupon Code</label>
+                    <input type="text" class="form-control" name="id" value="<%= coupon[0]._id %>">
+                    <input type="text" class="form-control" name="code" placeholder="Enter Coupon code" value="<%= coupon[0].code %>">
+                    <% if (error.code) { %>
+                    <label class="error"><%= error.code.msg %></label>
+                    <% } %>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="formrow-firstname-input">Coupon Code Percentage Discount</label>
+                    <input type="number" class="form-control" name="percentage" placeholder="50%" value="<%= coupon[0].percentage %>">
+                    <% if (error.percentage) { %>
+                    <label class="error"><%= error.percentage.msg %></label>
+                    <% } %>
+                  </div>
+
+                  <div class="col-md-12">
+                    <button class="btn btn-success" type="submit">Update</button>
+                  </div>
+                </form>
+              </div>
+              <!-- end card body -->
+            </div>
+            <!-- end card -->
+          </div>
+        </div>
+        <!-- container-fluid -->
+      </div>
+      <!-- End Page-content -->
+    </div>
+    <!-- end main content-->
+
+  </div>
+  <!-- END layout-wrapper -->
+
+
+  <!-- Right Sidebar -->
+  <!-- /Right-bar -->
+
+  <%- include("../partials/footer") %>
+  <!-- Right bar overlay-->
+  <div class="rightbar-overlay"></div>
+
+
+  <%- include("../partials/script") %>
+</body>
+
+</html>

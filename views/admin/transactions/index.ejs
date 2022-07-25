@@ -1,0 +1,147 @@
+<%- include("../partials/header") %>
+
+<body>
+
+  <!-- <body data-layout="horizontal"> -->
+
+  <!-- Begin page -->
+  <div id="layout-wrapper">
+    <%- include("../partials/top-nav") %>
+    <%- include("../partials/sidemenu") %>
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+      <div class="page-content">
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">Transactions</h4>
+
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Transactions</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                  </ol>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- end page title -->
+
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">All Transactions</h4>
+              </div><!-- end card header -->
+
+              <div class="card-body px-0">
+                <div class="table-responsive px-3" data-simplebar>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h4 class="card-title">All Transactions</h4>
+                        </div>
+                        <div class="card-body">
+                          <table id="" class="table table-bordered dt-responsive  nowrap w-100">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>Transaction ID</th>
+                                <th>User</th>
+                                <th>Rider</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Payment Type</th>
+                                <th>Made On</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% transactions.forEach(function(trip) { let num=trip.price %>
+                              <tr>
+                                <td>
+                                  <%= sn++ %>
+                                </td>
+                                <td><b>
+                                    <%= trip.tripId %>
+                                  </b></td>
+                                <td><b><a href="/view-user/<%= trip.userData.id %>"><%= trip.userData.name %></a></b></td>
+                                <td><b><a href="/view-rider/<%= trip.riderData.id %>"><%= trip.riderData.name %></a></b></td>
+                                <td>
+                                  <b>₦<%= (num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></b>
+                                </td>
+                                <td>
+                                  <%if(trip.status==='Completed'){ %>
+                                  <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                    <%= trip.status %>
+                                  </button>
+                                  <% } else{ %>
+                                  <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                    <%= trip.status %>
+                                  </button>
+                                  <% } %>
+                                </td>
+                                <td>
+                                  <%if(trip.paymentStatus==='Paid'){ %>
+                                  <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                    <%= trip.paymentStatus %>
+                                  </button>
+                                  <% } else{ %>
+                                  <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                    <%= trip.paymentStatus %>
+                                  </button>
+                                  <% } %>
+                                </td>
+                                <td> <%= moment(trip.createdAt).format('Do MMMM, YYYY') %> </td>
+                              </tr>
+                              <% }); %>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- end tab content -->
+              </div>
+              <!-- end card body -->
+            </div>
+            <!-- end card -->
+          </div>
+        </div>
+        <!-- container-fluid -->
+      </div>
+      <!-- End Page-content -->
+    </div>
+    <!-- end main content-->
+
+  </div>
+  <!-- END layout-wrapper -->
+
+
+  <!-- Right Sidebar -->
+  <!-- /Right-bar -->
+
+  <%- include("../partials/footer") %>
+  <!-- Right bar overlay-->
+  <div class="rightbar-overlay"></div>
+
+
+  <%- include("../partials/script") %>
+</body>
+
+<script>
+  $(document).ready(function() {
+    $('table.table-bordered').DataTable();
+  });
+</script>
+<!-- Mirrored from themesbrand.com/minia/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Sep 2021 12:48:41 GMT -->
+
+</html>

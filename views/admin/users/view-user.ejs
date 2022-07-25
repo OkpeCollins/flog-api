@@ -1,0 +1,382 @@
+<%- include("../partials/header") %>
+
+<body>
+
+  <!-- <body data-layout="horizontal"> -->
+
+  <!-- Begin page -->
+  <div id="layout-wrapper">
+    <%- include("../partials/top-nav") %>
+    <%- include("../partials/sidemenu") %>
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+      <div class="page-content">
+        <div class="container-fluid">
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18 text-capitalize"><%= getUser[0].name %> Profile</h4>
+
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                    <li class="breadcrumb-item active text-capitalize"><%= getUser[0].name %> Profile</li>
+                  </ol>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm order-2 order-sm-1">
+                      <div class="d-flex align-items-start mt-3 mt-sm-0">
+                        <div class="flex-shrink-0">
+                          <div class="avatar-xl me-3">
+                            <% if(getUser[0].profilePicture.value){ %>
+                            <img src="data:<%= getUser[0].profilePicture.mimeType %>;base64, <%= getUser[0].profilePicture.value %>" alt="user" alt="" class="img-fluid rounded-circle d-block">
+                            <% }else{ %>
+                            <img src="/img/avatar.jpg" alt="" class="img-fluid rounded-circle d-block">
+                            <% } %>
+                          </div>
+                        </div>
+                        <div class="flex-grow-1">
+                          <div>
+                            <h5 class="font-size-16 mb-1 text-capitalize"><%= getUser[0].name %></h5>
+                            <p class="text-muted font-size-13 text-capitalize"><%= getUser[0].email.value %></p>
+
+                            <div class="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
+                              <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i><%= getUser[0].mobile.value %></div>
+                              <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i><%if(getUser[0].status==='Active' ){ %>
+                                <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                  <%= getUser[0].status %>
+                                </button>
+                                <% } else{ %>
+                                <button class="btn btn-soft-danger waves-effect waves-light btn-sm">
+                                  <%= getUser[0].status %>
+                                </button>
+                                <% } %>
+                              </div>
+                              <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>
+                                <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                  <%= getUser[0].defaultPaymentType %>
+                                </button>
+                              </div>
+                              <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>
+                                <%= moment(getUser[0].createdAt).format('Do MMMM,YYYY') %>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-auto order-1 order-sm-2">
+                      <div class="d-flex align-items-start justify-content-end gap-2">
+                        <div>
+                          <a href="/users" class="btn btn-primary btn-block mb-2">Back</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <ul class="nav nav-tabs-custom card-header-tabs border-top mt-4" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link px-3 active" data-bs-toggle="tab" href="#profile" role="tab">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link px-3" data-bs-toggle="tab" href="#trip" role="tab">Trip History</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link px-3" data-bs-toggle="tab" href="#transaction" role="tab">Transactions</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- end card body -->
+              </div>
+              <!-- end card -->
+
+              <div class="tab-content">
+
+                <div class="tab-pane active" id="profile" role="tabpanel">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-title mb-0"><%= getUser[0].name %> Profile</h5>
+                    </div>
+                    <div class="card-body">
+                      <div>
+                        <div class="pb-3">
+                          <div class="row">
+                            <div class="col-xl-2">
+                              <div>
+                                <h5 class="font-size-12 text-muted">Full Name :</h5>
+                              </div>
+                            </div>
+                            <div class="col-xl">
+                              <div>
+                                <h5 class="font-size-18"><%= getUser[0].name %></h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="py-2">
+                          <div class="row">
+                            <div class="col-xl-2">
+                              <div>
+                                <h5 class="font-size-12 text-muted">Email :</h5>
+                              </div>
+                            </div>
+                            <div class="col-xl">
+                              <div>
+                                <h5 class="font-size-18"><%= getUser[0].email.value %></h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="py-2">
+                          <div class="row">
+                            <div class="col-xl-2">
+                              <div>
+                                <h5 class="font-size-12 text-muted">Phone Number :</h5>
+                              </div>
+                            </div>
+                            <div class="col-xl">
+                              <div>
+                                <h5 class="font-size-18"><%= getUser[0].mobile.value %></h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="py-2">
+                          <div class="row">
+                            <div class="col-xl-2">
+                              <div>
+                                <h5 class="font-size-12 text-muted">Account Status :</h5>
+                              </div>
+                            </div>
+                            <div class="col-xl">
+                              <div>
+                                <h5 class="font-size-18">
+                                  <%if(getUser[0].status==='Active' ){ %>
+                                  <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                    <%= getUser[0].status %>
+                                  </button>
+                                  <% } else if(getUser[0].status==='Blocked'){ %>
+                                  <button class="btn btn-soft-danger waves-effect waves-light btn-sm">
+                                    <%= getUser[0].status %>
+                                  </button>
+                                  <% } %>
+                                </h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="py-2">
+                          <div class="row">
+                            <div class="col-xl-2">
+                              <div>
+                                <h5 class="font-size-12 text-muted">Payment Type :</h5>
+                              </div>
+                            </div>
+                            <div class="col-xl">
+                              <div>
+                                <h5 class="font-size-18">
+                                  <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                    <%= getUser[0].defaultPaymentType %>
+                                  </button>
+                                </h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="py-2">
+                          <div class="row">
+                            <div class="col-xl-2">
+                              <div>
+                                <h5 class="font-size-12 text-muted">Registered On :</h5>
+                              </div>
+                            </div>
+                            <div class="col-xl">
+                              <div>
+                                <h5 class="font-size-18"><%= moment(getUser[0].createdAt).format('Do MMMM,YYYY') %></h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </div>
+                    <!-- end card body -->
+                  </div>
+                  <!-- end card -->
+                </div>
+                <div class="tab-pane" id="trip" role="tabpanel">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Trip History</h4>
+                      <div class="table-responsive">
+                        <table id="" class="table table-bordered dt-responsive  nowrap w-100">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Description</th>
+                              <th>Price</th>
+                              <th>ETA</th>
+                              <th>Status</th>
+                              <th>Registered On</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% trips.forEach(function(trip) { let num=trip.price %>
+                            <tr>
+                              <td>
+                                <%= sn++ %>
+                              </td>
+                              <td><b>
+                                  <%= trip.description %>
+                                </b></td>
+                              <td>
+                                  <b>₦<%= (num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></b>
+                              </td>
+                              <td>
+                                <%= trip.ETA.text %>
+                              </td>
+                              <td>
+                                <%if(trip.status==='Completed' || trip.status==='Accepted'){ %>
+                                <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                  <%= trip.status %>
+                                </button>
+                                <% } else if(trip.status==='Pending' || trip.status==='Ongoing'){ %>
+                                <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                  <%= trip.status %>
+                                </button>
+                                <% } else if(trip.status==='Blocked' || trip.status==='Cancelled'){ %>
+                                <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                                  <%= trip.status %>
+                                </button>
+                                <% } %>
+                              </td>
+                              <td><%= moment(trip.createdAt).format('Do MMMM, YYYY') %></td>
+                              <td>
+                                <a class="btn btn-soft-success waves-effect waves-light" href="/view-trip-detail/<%= getUser[0].id %>/<%= trip.id %>">View</a>
+                              </td>
+                            </tr>
+                            <% }); %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-pane" id="transaction" role="tabpanel">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Transactions History</h4>
+                      <div class="table-responsive">
+                        <table id="" class="table table-bordered dt-responsive  nowrap w-100">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Trip ID</th>
+                              <th>Price</th>
+                              <th>Status</th>
+                              <th>Payment Type</th>
+                              <th>Made On</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% userTransactions.forEach(function(trip) { let num=trip.price %>
+                            <tr>
+                              <td>
+                                <%= sn2++ %>
+                              </td>
+                              <td><b>
+                                  <%= trip.tripId %>
+                                </b></td>
+                              <td>
+                                  <b>₦<%= (num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></b>
+                              </td>
+                              <td>
+                                <%if(trip.status==='Completed'){ %>
+                                <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                  <%= trip.status %>
+                                </button>
+                                <% } else{ %>
+                                <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                  <%= trip.status %>
+                                </button>
+                                <% } %>
+                              </td>
+                              <td>
+                                <%if(trip.paymentStatus==='Paid'){ %>
+                                <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                  <%= trip.paymentStatus %>
+                                </button>
+                                <% } else{ %>
+                                <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                  <%= trip.paymentStatus %>
+                                </button>
+                                <% } %>
+                              </td>
+                              <td> <%= moment(trip.createdAt).format('Do MMMM, YYYY') %> </td>
+                            </tr>
+                            <% }); %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end card -->
+                </div>
+                <!-- end tab pane -->
+              </div>
+              <!-- end tab content -->
+            </div>
+          </div>
+
+
+        </div>
+        <!-- container-fluid -->
+      </div>
+      <!-- End Page-content -->
+    </div>
+    <!-- end main content-->
+
+  </div>
+  <!-- END layout-wrapper -->
+
+
+  <!-- Right Sidebar -->
+  <!-- /Right-bar -->
+
+  <%- include("../partials/footer") %>
+  <!-- Right bar overlay-->
+  <div class="rightbar-overlay"></div>
+
+
+  <%- include("../partials/script") %>
+</body>
+
+<script>
+  $(document).ready(function() {
+    $('table.table-bordered').DataTable();
+  });
+</script>
+<!-- Mirrored from themesbrand.com/minia/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Sep 2021 12:48:41 GMT -->
+
+</html>

@@ -1,0 +1,94 @@
+<!-- ========== Left Sidebar Start ========== -->
+<div class="vertical-menu">
+
+  <div data-simplebar class="h-100">
+
+    <!--- Sidemenu -->
+    <div id="sidebar-menu">
+      <!-- Left Menu Start -->
+      <ul class="metismenu list-unstyled" id="side-menu">
+        <li class="menu-title" data-key="t-menu">Menu</li>
+
+        <li>
+          <a href="/dashboard">
+            <i class="fa fa-house-user fa-sm"></i>
+            <span data-key="t-dashboard"> Dashboard</span>
+          </a>
+        </li>
+
+        <li  <% if (title === 'Edit Fleet' || title === 'View Fleet') {  %> class="mm-active" <% } %>>
+          <a href="/fleet-owners" <% if (title === 'Edit Fleet' || title === 'View Fleet') {  %> class="active" <% } %>>
+            <i class="fas fa-motorcycle fa-xs"></i>
+            <span data-key="t-dashboard"> Fleet Owner</span>
+          </a>
+        </li>
+
+        <li <% if (title === 'Edit Rider' || title === 'View Rider' || title === 'Rider View Trip Details') {  %> class="mm-active" <% } %>>
+          <a href="/riders" <% if (title === 'Edit Rider' || title === 'View Rider' || title === 'Rider View Trip Details') {  %> class="active" <% } %>>
+            <i class="fas fa-motorcycle fa-xs"></i>
+            <span data-key="t-dashboard"> Riders</span>
+          </a>
+        </li>
+
+        <li <% if (title === 'Edit User' || title === 'View User' || title === 'View Trip Details') {  %> class="mm-active" <% } %>>
+          <a href="/users" <% if (title === 'Edit User' || title === 'View User' || title === 'View Trip Details') {  %> class="active" <% } %>>
+            <i class="fas fa-users fa-xs"></i>
+            <span data-key="t-dashboard"> Users</span>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/verification">
+            <i class="fas fa-user-check fa-xs"></i>
+            <span data-key="t-apps">Verification Center</span>
+          </a>
+        </li>
+        <li <% if (title === 'View Trip') {  %> class="mm-active" <% } %>>
+          <a href="/all-trips" <% if (title === 'View Trip') {  %> class="active" <% } %>>
+            <i class="fas fa-biking"></i>
+            <span data-key="t-dashboard"> Trip History</span>
+          </a>
+        </li>
+        <li>
+          <a href="/all-transactions">
+            <i class="fas fa-money-bill-wave"></i>
+            <span data-key="t-dashboard"> Transactions</span>
+          </a>
+        </li>
+        
+        <li class="menu-title mt-2" data-key="t-components">App Settings</li>
+        <li>
+          <a href="/app-settings">
+            <i class="fa fa-cogs"></i>
+            <span data-key="t-dashboard"> App Settings</span>
+          </a>
+        </li>
+        <li <% if (title === 'Create Coupon' || title === 'Edit Coupon') {  %> class="mm-active" <% } %>>
+          <a href="/coupon-codes" <% if (title === 'Create Coupon' || title === 'Edit Coupon') {  %> class="active" <% } %>>
+            <i class="fa fa-cogs"></i>
+            <span data-key="t-dashboard"> Coupon Code</span>
+          </a>
+        </li>
+
+        <li class="menu-title mt-2" data-key="t-components">Settings</li>
+
+        <li>
+          <a href="/profile">
+            <i class="fa fa-user"></i>
+            <span data-key="t-dashboard"> Profile</span>
+          </a>
+        </li>
+        <li>
+          <a href="/logout">
+            <i class="fa fa-lock"></i>
+            <span data-key="t-dashboard"> Logout</span>
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+    <!-- Sidebar -->
+  </div>
+</div>
+<!-- Left Sidebar End -->

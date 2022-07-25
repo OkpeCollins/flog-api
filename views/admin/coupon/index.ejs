@@ -1,0 +1,247 @@
+<%- include("../partials/header") %>
+
+<style>
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 90px;
+    height: 34px;
+  }
+
+  .switch input {
+    display: none;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    background-color: gray;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+  }
+
+  input:checked+.slider {
+    background-color: #04AA6D;
+  }
+
+  input:checked {
+    background-color: #04AA6D;
+  }
+
+  input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(55px);
+  }
+
+  /*------ ADDED CSS ---------*/
+  .slider:after {
+    content: 'OFF';
+    color: white;
+    font-size: 15px;
+    display: block;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    font-family: Verdana, sans-serif;
+  }
+
+  input:checked+.slider:after {
+    content: 'ON';
+    font-size: 15px;
+  }
+
+  /*--------- END --------*/
+</style>
+
+<body>
+
+  <!-- <body data-layout="horizontal"> -->
+
+  <!-- Begin page -->
+  <div id="layout-wrapper">
+    <%- include("../partials/top-nav") %>
+    <%- include("../partials/sidemenu") %>
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+      <div class="page-content">
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">Coupon Code</h4>
+
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Coupon Code</li>
+                  </ol>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- end page title -->
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">All Coupon Codes</h4>
+                <div class="flex-shrink-0">
+                  <a href="/create-coupon-codes" class="btn btn-success">Create New</a>
+                </div>
+              </div><!-- end card header -->
+
+              <div class="card-body px-0">
+                <div class="table-responsive px-3" data-simplebar style="max-height: 352px;">
+                  <table id="" class="table table-bordered table-responsive dt-responsive  nowrap w-100">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Coupon Code</th>
+                        <th>Discount Percentage (%)</th>
+                        <th>Status</th>
+                        <th>Createed On</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <% coupons.forEach(function(coupon) { %>
+                      <tr>
+                        <td><%= sn++ %></td>
+                        <td>
+                          <h5 class="font-size-14 mb-1"><%= coupon.code %></h5>
+                        </td>
+                        <td><%= coupon.percentage %>%</td>
+                        <td>
+                          <form method="get" action="" id="statusForm">
+                            <span class="col-6 col-sm-6 mb-0 pb-0">
+                              <label class="switch">
+                                <input type="checkbox" name="<%= coupon.id %>" <%if(coupon.status ==='Active' ){ %> checked <% } %>>
+                                <div class="slider round"></div>
+                              </label>
+                            </span>
+                          </form>
+                          <!--  <%if(coupon.status ==='Active' ){ %>
+                          <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                            <%= coupon.status %>
+                          </button>
+                          <% } else if(coupon.status ==='Inactive'){ %>
+                          <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                            <%= coupon.status %>
+                          </button>
+                          <% } %>
+                          -->
+                        </td>
+                        <td><%= moment(coupon.createdAt).format('Do MMMM, YYYY') %></td>
+                        <td>
+                          <a href="/edit-coupon/<%= coupon.id %>" class="btn btn-soft-success waves-effect waves-light"><i class="fa fa-edit font-size-16 align-middle"></i></a>
+                        </td>
+                      </tr>
+                      <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- end card body -->
+            </div>
+            <!-- end card -->
+          </div>
+        </div>
+        <!-- container-fluid -->
+      </div>
+      <!-- End Page-content -->
+    </div>
+    <!-- end main content-->
+
+  </div>
+  <!-- END layout-wrapper -->
+
+
+  <!-- Right Sidebar -->
+  <!-- /Right-bar -->
+
+  <%- include("../partials/footer") %>
+  <!-- Right bar overlay-->
+  <div class="rightbar-overlay"></div>
+
+
+  <%- include("../partials/script") %>
+</body>
+
+<script>
+  document.querySelectorAll("input[type=checkbox]").forEach(item => {
+    item.addEventListener('change', function() {
+      if (this.checked) {
+        checkNow(item.name, 1)
+      } else {
+        checkNow(item.name, 0)
+      }
+    });
+  })
+
+  $(document).ready(function() {
+    $('table.table-bordered').DataTable();
+  });
+
+  function checkNow(id, data) {
+    switch (data) {
+      case 1:
+        save(id, "Active")
+        toastr.success("Coupon Status changed to Active")
+        break;
+      case 0:
+        save(id, "Inactive")
+        toastr.success("Coupon Status changed to Inactive")
+        break;
+      default:
+    }
+  }
+
+  function save(id, status) {
+    $.ajax({
+      type: "post",
+      url: "update-coupon-status",
+      cache: false,
+      data: {
+        id: id,
+        status: status
+      },
+      success: function(response) {
+        console.log(response)
+      }
+    });
+  }
+</script>
+
+<!-- Mirrored from themesbrand.com/minia/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Sep 2021 12:48:41 GMT -->
+
+</html>

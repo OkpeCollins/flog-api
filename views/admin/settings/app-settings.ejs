@@ -1,0 +1,171 @@
+<%- include("../partials/header") %>
+
+<body>
+
+  <!-- <body data-layout="horizontal"> -->
+
+  <!-- Begin page -->
+  <div id="layout-wrapper">
+    <%- include("../partials/top-nav") %>
+    <%- include("../partials/sidemenu") %>
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+      <div class="page-content">
+        <div class="container-fluid">
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18 text-capitalize">App Settings</h4>
+
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                    <li class="breadcrumb-item active text-capitalize">App Settings</li>
+                  </ol>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-lg-12">
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-title mb-0">Update App Setiings</h5>
+                </div>
+                <div class="card-body">
+                  <form method="POST" action="/app-settings">
+
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label class="form-label" for="formrow-firstname-input">Twilio ACCOUNTSID</label>
+                          <input type="text" class="form-control" name="ACCOUNTSID" value="<%= settings[0].twilio.ACCOUNTSID %>">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label class="form-label" for="formrow-firstname-input">Twilio SERVICE_SID</label>
+                          <input type="text" class="form-control" name="SERVICE_SID" value="<%= settings[0].twilio.SERVICE_SID %>">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label class="form-label" for="formrow-firstname-input">Twilio AUTHTOKEN</label>
+                          <input type="text" class="form-control" name="AUTHTOKEN" value="<%= settings[0].twilio.AUTHTOKEN %>">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="mb-3">
+                          <label class="form-label" for="formrow-email-input">Google Map API</label>
+                          <input type="text" class="form-control" name="googgleMap_api" value="<%= settings[0].googgleMap.API %>">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label" for="formrow-firstname-input">Trip Price Per Kilometer</label>
+                          <input type="" class="form-control" name="pricePerKilometer" value="<%= settings[0].trip.pricePerKilometer %>">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label" for="formrow-firstname-input">Trip Fixed Price</label>
+                          <input type="number" class="form-control" name="fixedPrice" value="<%= settings[0].trip.fixedPrice %>">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label class="form-label" for="formrow-firstname-input">Flutterwave Public Key</label>
+                          <input type="text" class="form-control" name="publicKey" value="<%= settings[0].payment.publicKey %>">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label class="form-label" for="formrow-firstname-input">Flutterwave Secret Key</label>
+                          <input type="text" class="form-control" name="secretKey" value="<%= settings[0].payment.secretKey %>">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label class="form-label" for="formrow-firstname-input">Flutterwave Encryption Key</label>
+                          <input type="text" class="form-control" name="encryptionKey" value="<%= settings[0].payment.encryptionKey %>">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label class="form-label" for="formrow-firstname-input">Account Name</label>
+                          <input type="text" class="form-control" name="name" value="<%= settings[0].account.name %>">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label class="form-label" for="formrow-firstname-input">Account Number</label>
+                          <input type="number" class="form-control" name="number" value="<%= settings[0].account.number %>">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label class="form-label" for="formrow-firstname-input">Bank</label>
+                          <input type="text" class="form-control" name="bank" value="<%= settings[0].account.number %>">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mt-4">
+                      <button type="submit" class="btn btn-primary w-md">Submit</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- end tab pane -->
+            </div>
+            <!-- end tab content -->
+          </div>
+        </div>
+
+
+      </div>
+      <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+  </div>
+  <!-- end main content-->
+
+  </div>
+  <!-- END layout-wrapper -->
+
+
+  <!-- Right Sidebar -->
+  <!-- /Right-bar -->
+
+  <%- include("../partials/footer") %>
+  <!-- Right bar overlay-->
+  <div class="rightbar-overlay"></div>
+
+
+  <%- include("../partials/script") %>
+</body>
+
+<script>
+  $(document).ready(function() {
+    $('table.table-bordered').DataTable();
+  });
+</script>
+<!-- Mirrored from themesbrand.com/minia/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Sep 2021 12:48:41 GMT -->
+
+</html>

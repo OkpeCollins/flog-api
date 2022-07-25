@@ -1,0 +1,319 @@
+<%- include("../partials/header") %>
+
+<body>
+
+  <!-- <body data-layout="horizontal"> -->
+
+  <!-- Begin page -->
+  <div id="layout-wrapper">
+    <%- include("../partials/top-nav") %>
+    <%- include("../partials/sidemenu") %>
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+      <div class="page-content">
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">Fleet Owners</h4>
+
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet Owners</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                  </ol>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- end page title -->
+
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1"></h4>
+                <div class="flex-shrink-0">
+                  <ul class="nav justify-content-end nav-tabs-custom rounded card-header-tabs" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active text-success" data-bs-toggle="tab" href="#approved" role="tab">
+                        Approved Fleet Owners
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-primary" data-bs-toggle="tab" href="#pending" role="tab">
+                        Pending Fleet Owners
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-danger" data-bs-toggle="tab" href="#blocked" role="tab">
+                        Blocked Fleet Owners
+                      </a>
+                    </li>
+                  </ul>
+                  <!-- end nav tabs -->
+                </div>
+              </div><!-- end card header -->
+
+              <div class="card-body px-0">
+                <div class="tab-content">
+                  <div class="tab-pane" id="pending" role="tabpanel">
+                    <div class="table-responsive px-3" data-simplebar>
+
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="card">
+                            <div class="card-header">
+                              <h4 class="card-title">Pending Fleet Owners</h4>
+                              <p class="card-title-desc"></p>
+                            </div>
+                            <div class="card-body">
+                              <table id="" class="table table-bordered dt-responsive  nowrap w-100">
+                                <thead>
+                                  <tr>
+                                    <th>S/N</th>
+                                    <th>User</th>
+                                    <th>Company Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Status</th>
+                                    <th>Registered On</th>
+                                    <th>Actions</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% pendingFleets.forEach(function(user) { %>
+                                  <tr>
+                                    <td><%= sn++ %></td>
+                                    <td class="py-1">
+                                      <% if(user.profilePicture.value){ %>
+                                      <img src="data:<%= user.profilePicture.mimeType %>;base64, <%= user.profilePicture.value %>" alt="user" class="rounded-circle header-profile-user">
+                                      <% }else{ %>
+                                      <img src="/img/avatar.jpg" alt="user" class="rounded-circle header-profile-user">
+                                      <% } %>
+                                    </td>
+                                    <td><b><a href="/view-fleet/<%= user.id %>"><%= user.companyName %></a></b></td>
+                                    <td><%= user.email.value %></td>
+                                    <td><%= user.mobile.value %></td>
+                                    <td>
+                                      <%if(user.status ==='Approved' ){ %>
+                                      <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                        <%= user.status %>
+                                      </button>
+                                      <% } else if(user.status ==='Pending' ){ %>
+                                      <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                        <%= user.status %>
+                                      </button>
+                                      <% } else if(user.status ==='Blocked' || user.status ==='Deleted'){ %>
+                                      <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                                        <%= user.status %><% } %>
+                                      </button>
+                                    </td>
+                                    <td><%= moment(user.createdAt).format('Do MMMM, YYYY') %></td>
+                                    <td>
+                                      <a href="/fleet-status/<%= user.id %>/1" onclick="return confirm('Are you sure you want to Approve this Fleet?')" title="Approve" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-soft-success waves-effect waves-light"><i class="fa fa-unlock font-size-16 align-middle"></i></a>
+                                      <a href="/view-fleet/<%= user.id %>" class="btn btn-soft-success waves-effect waves-light" title="View" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-eye font-size-16 align-middle"></i></a>
+                                      <a href="/edit-fleet/<%= user.id %>" class="btn btn-soft-success waves-effect waves-light" title="Edit" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-edit font-size-16 align-middle"></i></a>
+                                      <a href="/fleet-status/<%= user.id %>/0" onclick="return confirm('Are you sure you want to Block this Fleet?')" title="Block" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-soft-danger waves-effect waves-light"><i class="fa fa-lock font-size-16 align-middle"></i></a>
+                                      <a href="/fleet-status/<%= user.id %>/2" onclick="return confirm('Are you sure you want to Delete this Fleet?')" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-soft-danger waves-effect waves-light"><i class="fa fa-trash font-size-16 align-middle"></i></a>
+                                    </td>
+                                  </tr>
+                                  <% }); %>
+                                </tbody>
+
+                              </table>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end tab pane -->
+                  <div class="tab-pane" id="blocked" role="tabpanel">
+                    <div class="table-responsive px-3" data-simplebar>
+
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="card">
+                            <div class="card-header">
+                              <h4 class="card-title">Blocked Fleet Owners</h4>
+                              <p class="card-title-desc"></p>
+                            </div>
+                            <div class="card-body">
+                              <table id="" class="table table-bordered dt-responsive  nowrap w-100">
+                                <thead>
+                                  <tr>
+                                    <th>S/N</th>
+                                    <th>User</th>
+                                    <th>Company Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Status</th>
+                                    <th>Registered On</th>
+                                    <th>Actions</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% blockedFleets.forEach(function(user) { %>
+                                  <tr>
+                                    <td><%= sn3++ %></td>
+                                    <td class="py-1">
+                                      <% if(user.profilePicture.value){ %>
+                                      <img src="data:<%= user.profilePicture.mimeType %>;base64, <%= user.profilePicture.value %>" alt="user" class="rounded-circle header-profile-user">
+                                      <% }else{ %>
+                                      <img src="/img/avatar.jpg" alt="user" class="rounded-circle header-profile-user">
+                                      <% } %>
+                                    </td>
+                                    <td><b><a href="/view-fleet/<%= user.id %>"><%= user.companyName %></a></b></td>
+                                    <td><%= user.email.value %></td>
+                                    <td><%= user.mobile.value %></td>
+                                    <td>
+                                      <%if(user.status ==='Approved' ){ %>
+                                      <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                        <%= user.status %>
+                                      </button>
+                                      <% } else if(user.status ==='Pending' ){ %>
+                                      <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                        <%= user.status %>
+                                      </button>
+                                      <% } else if(user.status ==='Blocked' || user.status ==='Deleted'){ %>
+                                      <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                                        <%= user.status %><% } %>
+                                      </button>
+                                    </td>
+                                    <td><%= moment(user.createdAt).format('Do MMMM, YYYY') %></td>
+                                    <td>
+                                      <a href="/fleet-status/<%= user.id %>/1" onclick="return confirm('Are you sure you want to Approve this Fleet?')" title="Approve" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-soft-success waves-effect waves-light"><i class="fa fa-unlock font-size-16 align-middle"></i></a>
+                                      <a href="/view-fleet/<%= user.id %>" class="btn btn-soft-success waves-effect waves-light" title="View" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-eye font-size-16 align-middle"></i></a>
+                                      <a href="/edit-fleet/<%= user.id %>" class="btn btn-soft-success waves-effect waves-light" title="Edit" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-edit font-size-16 align-middle"></i></a>
+                                      <a href="/fleet-status/<%= user.id %>/2" onclick="return confirm('Are you sure you want to Delete this Fleet?')" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-soft-danger waves-effect waves-light"><i class="fa fa-trash font-size-16 align-middle"></i></a>
+                                    </td>
+                                  </tr>
+                                  <% }); %>
+                                </tbody>
+
+                              </table>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end tab pane -->
+
+                  <div class="tab-pane active" id="approved" role="tabpanel">
+                    <div class="table-responsive px-3" data-simplebar>
+
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="card">
+                            <div class="card-header">
+                              <h4 class="card-title">Approved Fleet Owners</h4>
+                              <p class="card-title-desc"></p>
+                            </div>
+                            <div class="card-body">
+                              <table id="" class="table table-bordered dt-responsive  nowrap w-100">
+                                <thead>
+                                  <tr>
+                                    <th>S/N</th>
+                                    <th>User</th>
+                                    <th>Company Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Status</th>
+                                    <th>Registered On</th>
+                                    <th>Actions</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% approvedFleets.forEach(function(user) { %>
+                                  <tr>
+                                    <td><%= sn1++ %></td>
+                                    <td class="py-1">
+                                      <% if(user.profilePicture.value){ %>
+                                      <img src="data:<%= user.profilePicture.mimeType %>;base64, <%= user.profilePicture.value %>" alt="user" class="rounded-circle header-profile-user">
+                                      <% }else{ %>
+                                      <img src="/img/avatar.jpg" alt="user" class="rounded-circle header-profile-user">
+                                      <% } %>
+                                    </td>
+                                    <td><b><a href="/view-fleet/<%= user.id %>"><%= user.companyName %></a></b></td>
+                                    <td><%= user.email.value %></td>
+                                    <td><%= user.mobile.value %></td>
+                                    <td>
+                                      <%if(user.status ==='Approved' ){ %>
+                                      <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                        <%= user.status %>
+                                      </button>
+                                      <% } else if(user.status ==='Pending' ){ %>
+                                      <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                        <%= user.status %>
+                                      </button>
+                                      <% } else if(user.status ==='Blocked' || user.status ==='Deleted'){ %>
+                                      <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                                        <%= user.status %><% } %>
+                                      </button>
+                                    </td>
+                                    <td><%= moment(user.createdAt).format('Do MMMM, YYYY') %></td>
+                                    <td>
+                                      <a href="/view-fleet/<%= user.id %>" class="btn btn-soft-success waves-effect waves-light" title="View" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-eye font-size-16 align-middle"></i></a>
+                                      <a href="/edit-fleet/<%= user.id %>" class="btn btn-soft-success waves-effect waves-light" title="Edit" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-edit font-size-16 align-middle"></i></a>
+                                      <a href="/fleet-status/<%= user.id %>/0" onclick="return confirm('Are you sure you want to Block this Fleet?')" title="Block" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-soft-danger waves-effect waves-light"><i class="fa fa-lock font-size-16 align-middle"></i></a>
+                                      <a href="/fleet-status/<%= user.id %>/2" onclick="return confirm('Are you sure you want to Delete this Fleet?')" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-soft-danger waves-effect waves-light"><i class="fa fa-trash font-size-16 align-middle"></i></a>
+                                    </td>
+                                  </tr>
+                                  <% }); %>
+                                </tbody>
+
+                              </table>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- end tab content -->
+              </div>
+              <!-- end card body -->
+            </div>
+            <!-- end card -->
+          </div>
+        </div>
+        <!-- container-fluid -->
+      </div>
+      <!-- End Page-content -->
+    </div>
+    <!-- end main content-->
+
+  </div>
+  <!-- END layout-wrapper -->
+
+
+  <!-- Right Sidebar -->
+  <!-- /Right-bar -->
+
+  <%- include("../partials/footer") %>
+  <!-- Right bar overlay-->
+  <div class="rightbar-overlay"></div>
+
+
+  <%- include("../partials/script") %>
+</body>
+
+<script>
+  $(document).ready(function() {
+    $('table.table-bordered').DataTable();
+  });
+</script>
+<!-- Mirrored from themesbrand.com/minia/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Sep 2021 12:48:41 GMT -->
+
+</html>

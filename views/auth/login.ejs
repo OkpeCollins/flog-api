@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Sign In</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="icon" 
+          type="image/png" 
+          href="/img/flog.png">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div
+                    class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-10 offset-sm-1 col-xm-12 align-items-center">
+                    <div class="text-center">
+                        <img alt="Vue logo" src="/img/flog.png" class="logo">
+                        <h1 class="login-h1">Sign In</h1>
+                    </div>
+                    <form id="admin-login" method="POST" action="/login">
+                        <div class="my-form-group">
+                            <input class="form-input" type="email" name="email" placeholder="Email Address">
+                                <% if (error.email) { %>
+                                    <label class="error"><%= error.email.msg %></label>
+                                    <% } %>
+                        </div>
+                        <div class="my-form-group">
+                            <input class="form-input" type="password" name="password" placeholder="Password">
+                            <% if (error.password) { %>
+                                <label class="error"><%= error.password.msg %></label>
+                                <% } %>
+                        </div>
+                        <div class="my-form-group">
+                            <button class="login-button" type="submit">Sign In</button>
+                        </div>
+                    </form>
+                    <div class="forget-password">
+                        <a href="/forget-password">Forget Password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- <script type="text/javascript" src="js/bootstrap.min.js"></script> -->
+<script
+src="https://code.jquery.com/jquery-3.5.1.js"
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#admin-login').validate({
+                rules: {
+                    email: {
+                        required: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 8,
+                        maxlength: 18
+                    }
+                },
+                messages: {
+                    email: {
+                        email: "Please provide a valid Email Address",
+                        required: "Please provide your Email Address",
+                    },
+                    password: {
+                        required: "Password is required",
+                        maxlength: "Password must not exceed 15 character long",
+                        minlength: "Password must not less than 6 character long"
+                    }
+                },
+                submitHandler: function (form) {
+                    $("#submit").attr("disabled", true).click(function (e) {
+                        e.preventDefault();
+                    });
+                    $("#ibtn2").show();
+                    $("#submit").text("Signing in...");
+                    form.submit();
+                }
+            });
+        })
+    </script>
+</body>
+  <%- include("./alert") %>

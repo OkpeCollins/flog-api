@@ -1,0 +1,121 @@
+<%- include("../partials/header") %>
+
+<body>
+
+  <!-- <body data-layout="horizontal"> -->
+
+  <!-- Begin page -->
+  <div id="layout-wrapper">
+    <%- include("../partials/top-nav") %>
+    <%- include("../partials/sidemenu") %>
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+      <div class="page-content">
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">Users</h4>
+
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Users</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                  </ol>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- end page title -->
+
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">Edit <%= getUser[0].name %></h4>
+              </div><!-- end card header -->
+
+              <div class="card-body">
+                <form method="POST" action="/admin-edit-user">
+                  <input type="hidden" name="id" value="<%= getUser[0].id %>">
+                  <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                      <label class="p-2">Email Address</label>
+                      <input type="email" class="form-control" id="inputEmail4" value="<%= getUser[0].email.value %>" name="email" placeholder="Email">
+                      <% if (error.email) { %>
+                      <label class="error">
+                        <%= error.email.msg %>
+                      </label>
+                      <% } %>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="p-2">Full Name</label>
+                      <input type="text" class="form-control" value="<%= getUser[0].name %>" id="inputPassword4" name="name" placeholder="Name">
+                    </div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                      <label class="p-2">Phone Number</label>
+                      <input type="text" class="form-control" id="inputEmail4" value="<%= getUser[0].mobile.value %>" name="mobile" placeholder="Phone Number">
+                      <% if (error.mobile) { %>
+                      <label class="error">
+                        <%= error.mobile.msg %>
+                      </label>
+                      <% } %>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="p-2">Account Status</label>
+                      <select class="form-control" name="status">
+                        <option value="Active" <%if(getUser[0].status==='Active'
+                                                                            ){ %> selected <% } %>>Active</option>
+                        <option value="Blocked" <%if(getUser[0].status==='Blocked' ){ %> selected <%
+                                                                                } %>>Blocked</option>
+                      </select>
+
+                      <% if (error.status) { %>
+                      <label class="error">
+                        <%= error.status.msg %>
+                      </label>
+                      <% } %>
+                    </div>
+                  </div>
+                  <div class="text-left">
+                    <button class="btn btn-primary">Update</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- End Page-content -->
+        </div>
+        <!-- end main content-->
+
+      </div>
+      <!-- END layout-wrapper -->
+    </div>
+
+    <!-- Right Sidebar -->
+    <!-- /Right-bar -->
+
+    <%- include("../partials/footer") %>
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+
+    <%- include("../partials/script") %>
+</body>
+
+<script>
+  $(document).ready(function() {
+    $('table.table-bordered').DataTable();
+  });
+</script>
+<!-- Mirrored from themesbrand.com/minia/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Sep 2021 12:48:41 GMT -->
+
+</html>

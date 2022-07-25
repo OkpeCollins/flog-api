@@ -1,0 +1,1215 @@
+<%- include("../partials/header") %>
+
+    <body>
+
+        <!-- <body data-layout="horizontal"> -->
+
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+            <%- include("../partials/top-nav") %>
+                <%- include("../partials/sidemenu") %>
+
+                    <!-- ============================================================== -->
+                    <!-- Start right Content here -->
+                    <!-- ============================================================== -->
+                    <div class="main-content">
+
+                        <div class="page-content">
+                            <div class="container-fluid">
+                                <!-- start page title -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                            <h4 class="mb-sm-0 font-size-18 text-capitalize">
+                                                <%= getUser.fullName %> Profile</h4>
+
+                                            <div class="page-title-right">
+                                                <ol class="breadcrumb m-0">
+                                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                                    <li class="breadcrumb-item active text-capitalize">
+                                                        <%= getUser.fullName %> Profile</li>
+                                                </ol>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-sm order-2 order-sm-1">
+                                                        <div class="d-flex align-items-start mt-3 mt-sm-0">
+                                                            <div class="flex-shrink-0">
+                                                                <div class="avatar-xl me-3">
+                                                                    <% if(getUser.profilePicture.value){ %>
+                                                                        <img src="data:<%= getUser.profilePicture.mimeType %>;base64, <%= getUser.profilePicture.value %>" alt="user" alt="" class="img-fluid rounded-circle d-block">
+                                                                        <% }else{ %>
+                                                                            <img src="/img/avatar.jpg" alt="" class="img-fluid rounded-circle d-block">
+                                                                            <% } %>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-grow-1">
+                                                                <div>
+                                                                    <h5 class="font-size-16 mb-1 text-capitalize">
+                                                                        <%= getUser.fullName %>
+                                                                    </h5>
+                                                                    <p class="text-muted font-size-13 text-capitalize">
+                                                                        <%= getUser.email.value %>
+                                                                    </p>
+
+                                                                    <div class="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
+                                                                        <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>
+                                                                            <%= getUser.mobile.value %>
+                                                                        </div>
+                                                                        <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>
+                                                                            <%if(getUser.status.account==='Approved' ){ %>
+                                                                                <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                  <%= getUser.status.account %>
+                                </button>
+                                                                                <% } else if(getUser.status.account==='Pending' ){ %>
+                                                                                    <button class="btn btn-soft-primary waves-effect waves-light btn-sm">
+                                  <%= getUser.status.account %>
+                                </button>
+                                                                                    <% } else if(getUser.status.account==='Blocked' || getUser.status.account==='Deleted'){ %>
+                                                                                        <button class="btn btn-soft-danger waves-effect waves-light btn-sm">
+                                  <%= getUser.status.account %>
+                                </button>
+                                                                                        <% } %>
+                                                                        </div>
+                                                                        <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>
+                                                                            <%if(getUser.status.trip ==='Online' ){ %>
+                                                                                <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                  <%= getUser.status.trip %>
+                                </button>
+                                                                                <% } else{ %>
+                                                                                    <button class="btn btn-soft-danger waves-effect waves-light btn-sm">
+                                  <%= getUser.status.trip %>
+                                </button>
+                                                                                    <% } %>
+                                                                        </div>
+                                                                        <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>
+                                                                            <%= moment(getUser.createdAt).format('Do MMMM,YYYY') %>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-auto order-1 order-sm-2">
+                                                        <div class="d-flex align-items-start justify-content-end gap-2">
+                                                            <div>
+                                                                <% if(getUser.status.account==='Pending'){ %>
+                                                                    <a href="/rider-status/<%= getUser.id %>/1" onclick="return confirm('Are you sure you want to Approve this Rider?')" title="Approve" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-soft-success waves-effect waves-light">Approve Rider</a>
+                                                                    <% }else if(getUser.status.account==='Approved'){ %>
+                                                                        <a href="/rider-status/<%= getUser.id %>/0" onclick="return confirm('Are you sure you want to Block this Rider?')" title="Block" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-soft-danger waves-effect waves-light">Block Rider</a>
+                                                                        <% }else if(getUser.status.account==='Blocked'){ %>
+                                                                            <a href="/rider-status/<%= getUser.id %>/1" onclick="return confirm('Are you sure you want to Unblock this Rider?')" title="Unblock" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-soft-success waves-effect waves-light">Unblock Rider</a>
+                                                                            <% } %>
+
+                                                                                <a href="/edit-rider/<%= getUser.id %>" class="btn btn-soft-success btn-block">Edit Rider</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <ul class="nav nav-tabs-custom card-header-tabs border-top mt-4" id="pills-tab" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link px-3 active" data-bs-toggle="tab" href="#profile" role="tab">Profile</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link px-3" data-bs-toggle="tab" href="#earning" role="tab">Earnings</a>
+                                                    </li>
+                                                    <% if(getUser.fleetOwnerData.fleetOwn){ %>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link px-3" data-bs-toggle="tab" href="#fleetowner" role="tab">Fleet Owner</a>
+                                                        </li>
+                                                        <% }else{ %>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link px-3" data-bs-toggle="tab" href="#guarantor" role="tab">Guarantor</a>
+                                                            </li>
+                                                            <% } %>
+
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link px-3" data-bs-toggle="tab" href="#bike" role="tab">Bike Details</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link px-" data-bs-toggle="tab" href="#trip" role="tab">Trip History</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link px-3" data-bs-toggle="tab" href="#transaction" role="tab">Transactions</a>
+                                                                </li>
+                                                </ul>
+                                            </div>
+                                            <!-- end card body -->
+                                        </div>
+                                        <!-- end card -->
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane" id="earning" role="tabpanel">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5 class="card-title mb-0">
+                                                            <%= getUser.fullName %> Earnings</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div>
+
+                                                            <div class="pb-3">
+                                                                <div class="row">
+                                                                    <div class="col-xl-2">
+                                                                        <div>
+                                                                            <h5 class="font-size-12 text-muted">Current Week :</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl">
+                                                                        <div>
+                                                                            <h5 class="font-size-18"></h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="py-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-2">
+                                                                        <div>
+                                                                            <h5 class="font-size-12 text-muted">Current Month :</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl">
+                                                                        <div>
+                                                                            <h5 class="font-size-18"></h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="py-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-2">
+                                                                        <div>
+                                                                            <h5 class="font-size-12 text-muted">Last Three Month :</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl">
+                                                                        <div>
+                                                                            <h5 class="font-size-18"></h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- end card body -->
+                                                </div>
+                                                <!-- end card -->
+                                            </div>
+
+                                            <div class="tab-pane active" id="profile" role="tabpanel">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5 class="card-title mb-0">
+                                                            <%= getUser.fullName %> Profile</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div>
+                                                            <div class="pb-3">
+                                                                <div class="row">
+                                                                    <div class="col-xl-2">
+                                                                        <div>
+                                                                            <h5 class="font-size-12 text-muted">Full Name :</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl">
+                                                                        <div>
+                                                                            <h5 class="font-size-18">
+                                                                                <%= getUser.fullName %>
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="py-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-2">
+                                                                        <div>
+                                                                            <h5 class="font-size-12 text-muted">Email :</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl">
+                                                                        <div>
+                                                                            <h5 class="font-size-18">
+                                                                                <%= getUser.email.value %>
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="py-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-2">
+                                                                        <div>
+                                                                            <h5 class="font-size-12 text-muted">Phone Number :</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl">
+                                                                        <div>
+                                                                            <h5 class="font-size-18">
+                                                                                <%= getUser.mobile.value %>
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="py-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-2">
+                                                                        <div>
+                                                                            <h5 class="font-size-12 text-muted">Account Status :</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl">
+                                                                        <div>
+                                                                            <h5 class="font-size-18">
+                                                                                <%if(getUser.status.account==='Approved' ){ %>
+                                                                                    <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                    <%= getUser.status.account %>
+                                  </button>
+                                                                                    <% } else if(getUser.status.account==='Pending' ){ %>
+                                                                                        <button class="btn btn-soft-primary waves-effect waves-light btn-sm">
+                                    <%= getUser.status.account %>
+                                  </button>
+                                                                                        <% } else if(getUser.status.account==='Blocked' || getUser.status.account==='Deleted'){ %>
+                                                                                            <button class="btn btn-soft-danger waves-effect waves-light btn-sm">
+                                    <%= getUser.status.account %>
+                                  </button>
+                                                                                            <% } %>
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="py-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-2">
+                                                                        <div>
+                                                                            <h5 class="font-size-12 text-muted">Rider Status :</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl">
+                                                                        <div>
+                                                                            <h5 class="font-size-18">
+                                                                                <%if(getUser.status.trip ==='Online' ){ %>
+                                                                                    <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                    <%= getUser.status.trip %>
+                                  </button>
+                                                                                    <% } else{ %>
+                                                                                        <button class="btn btn-soft-danger waves-effect waves-light btn-sm">
+                                    <%= getUser.status.trip %>
+                                  </button>
+                                                                                        <% } %>
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="py-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-2">
+                                                                        <div>
+                                                                            <h5 class="font-size-12 text-muted">Bank Name :</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl">
+                                                                        <div>
+                                                                            <h5 class="font-size-18">
+                                                                                <%= getUser.accountDetails.bankName %>
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="py-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-2">
+                                                                        <div>
+                                                                            <h5 class="font-size-12 text-muted">Account Name :</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl">
+                                                                        <div>
+                                                                            <h5 class="font-size-18">
+                                                                                <%= getUser.accountDetails.accountName %>
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="py-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-2">
+                                                                        <div>
+                                                                            <h5 class="font-size-12 text-muted">Account Number :</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl">
+                                                                        <div>
+                                                                            <h5 class="font-size-18">
+                                                                                <%= getUser.accountDetails.accountNumber %>
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="py-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-2">
+                                                                        <div>
+                                                                            <h5 class="font-size-12 text-muted">Registered On :</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl">
+                                                                        <div>
+                                                                            <h5 class="font-size-18">
+                                                                                <%= moment(getUser.createdAt).format('Do MMMM,YYYY') %>
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                    <!-- end card body -->
+                                                </div>
+                                                <!-- end card -->
+                                            </div>
+
+                                            <%if(getUser.fleetOwnerData.fleetOwn){ %>
+
+                                                <div class="tab-pane" id="fleetowner" role="tabpanel">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h5 class="card-title mb-0">Owned by FleetOwner
+                                                            </h5>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div>
+                                                                <div class="pb-3">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-2">
+                                                                            <div>
+                                                                                <h5 class="font-size-12 text-muted">FleetOwner Picture :</h5>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xl">
+                                                                            <div>
+                                                                                <div class="flex-shrink-0">
+                                                                                    <div class="avatar-xl me-3">
+                                                                                        <% if(fleet.profilePicture.value){ %>
+                                                                                            <a href="data:<%= fleet.profilePicture.mimeType %>;base64, <%= fleet.profilePicture.value %>" download="">
+                                                                                                                            <img src="data:<%= fleet.profilePicture.mimeType %>;base64, <%= fleet.profilePicture.value %>" alt="user" alt="" class="img-fluid rounded-circle d-block">
+                                                                                                                        </a>
+                                                                                            <% }else{ %>
+                                                                                                <img src="/img/avatar.jpg" alt="" class="img-fluid rounded-circle d-block">
+                                                                                                <% } %>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="py-2">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-2">
+                                                                            <div>
+                                                                                <h5 class="font-size-12 text-muted">FleetOwner Company Name :</h5>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xl">
+                                                                            <div>
+                                                                                <h5 class="font-size-18">
+                                                                                    <%= fleet.companyName %>
+                                                                                </h5>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="py-2">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-2">
+                                                                            <div>
+                                                                                <h5 class="font-size-12 text-muted">FleetOwner Email :</h5>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xl">
+                                                                            <div>
+                                                                                <h5 class="font-size-18">
+                                                                                    <%= fleet.email.value %>
+                                                                                </h5>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="py-2">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-2">
+                                                                            <div>
+                                                                                <h5 class="font-size-12 text-muted">FleetOwner Mobile :</h5>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xl">
+                                                                            <div>
+                                                                                <h5 class="font-size-18">
+                                                                                    <%= fleet.mobile.value %>
+                                                                                </h5>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="py-2">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-2">
+                                                                            <div>
+                                                                                <h5 class="font-size-12 text-muted">FleetOwner RGNumber :</h5>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xl">
+                                                                            <div>
+                                                                                <h5 class="font-size-18">
+                                                                                    <%= fleet.RGNumber %>
+                                                                                </h5>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="py-2">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-12">
+                                                                            <div>
+                                                                                <a target="blank" href="/view-fleet/<%= fleet._id %>" class="btn btn-sm btn-success">View FleetOwner Profile</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <!-- end card body -->
+                                                    </div>
+                                                    <!-- end card -->
+                                                </div>
+                                                <%}else{ %>
+
+                                                    <div class="tab-pane" id="guarantor" role="tabpanel">
+                                                        <div class="card">
+                                                            <div class="card-header">
+                                                                <h5 class="card-title mb-0">FleetOwner</h5>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div>
+                                                                    <div class="pb-3">
+                                                                        <div class="row">
+                                                                            <div class="col-xl-2">
+                                                                                <div>
+                                                                                    <h5 class="font-size-12 text-muted">Guarantor Picture :</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl">
+                                                                                <div>
+                                                                                    <div class="flex-shrink-0">
+                                                                                        <div class="avatar-xl me-3">
+                                                                                            <% if(getUser.guarantor.photo.value){ %>
+                                                                                                <a href="data:<%= getUser.guarantor.photo.mimeType %>;base64, <%= getUser.guarantor.photo.value %>" download="">
+                                                                                                                                <img src="data:<%= getUser.guarantor.photo.mimeType %>;base64, <%= getUser.guarantor.photo.value %>" alt="user" alt="" class="img-fluid rounded-circle d-block">
+                                                                                                                            </a>
+                                                                                                <% }else{ %>
+                                                                                                    <img src="/img/avatar.jpg" alt="" class="img-fluid rounded-circle d-block">
+                                                                                                    <% } %>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="py-2">
+                                                                        <div class="row">
+                                                                            <div class="col-xl-2">
+                                                                                <div>
+                                                                                    <h5 class="font-size-12 text-muted">Guarantor Name :</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl">
+                                                                                <div>
+                                                                                    <h5 class="font-size-18">
+                                                                                        <%= getUser.guarantor.name %>
+                                                                                    </h5>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="py-2">
+                                                                        <div class="row">
+                                                                            <div class="col-xl-2">
+                                                                                <div>
+                                                                                    <h5 class="font-size-12 text-muted">Guarantor Mobile :</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl">
+                                                                                <div>
+                                                                                    <h5 class="font-size-18">
+                                                                                        <%= getUser.guarantor.mobile %>
+                                                                                    </h5>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="py-2">
+                                                                        <div class="row">
+                                                                            <div class="col-xl-2">
+                                                                                <div>
+                                                                                    <h5 class="font-size-12 text-muted">Guarantor Occupation :</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl">
+                                                                                <div>
+                                                                                    <h5 class="font-size-18">
+                                                                                        <%= getUser.guarantor.occupation %>
+                                                                                    </h5>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="py-2">
+                                                                        <div class="row">
+                                                                            <div class="col-xl-2">
+                                                                                <div>
+                                                                                    <h5 class="font-size-12 text-muted">Guarantor Relationship :</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl">
+                                                                                <div>
+                                                                                    <h5 class="font-size-18">
+                                                                                        <%= getUser.guarantor.relationship %>
+                                                                                    </h5>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="py-2">
+                                                                        <div class="row">
+                                                                            <div class="col-xl-2">
+                                                                                <div>
+                                                                                    <h5 class="font-size-12 text-muted">Guarantor Address :</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl">
+                                                                                <div>
+                                                                                    <h5 class="font-size-18">
+                                                                                        <%= getUser.guarantor.address %>
+                                                                                    </h5>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <!-- end card body -->
+                                                        </div>
+                                                        <!-- end card -->
+                                                    </div>
+
+                                                    <%}%>
+                                                        <div class="tab-pane" id="bike" role="tabpanel">
+                                                            <div class="card">
+                                                                <div class="card-header">
+                                                                    <h5 class="card-title mb-0">Bike Details</h5>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <div>
+                                                                        <div class="py-2">
+                                                                            <div class="row">
+                                                                                <div class="col-xl-2">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-12 text-muted">Bike Manufacturer :</h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-xl">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-18">
+                                                                                            <%= getUser.bike.bikeManufacturer %>
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="py-2">
+                                                                            <div class="row">
+                                                                                <div class="col-xl-2">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-12 text-muted">Bike Type :</h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-xl">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-18">
+                                                                                            <%= getUser.bike.bikeType %>
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="py-2">
+                                                                            <div class="row">
+                                                                                <div class="col-xl-2">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-12 text-muted">Bike Colour :</h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-xl">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-18">
+                                                                                            <%= getUser.bike.bikeColor %>
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="py-2">
+                                                                            <div class="row">
+                                                                                <div class="col-xl-2">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-12 text-muted">Bike License Plate :</h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-xl">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-18">
+                                                                                            <%= getUser.bike.licensePlate %>
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="py-2">
+                                                                            <div class="row">
+                                                                                <div class="col-xl-2">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-12 text-muted">Bike Paper :</h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-xl">
+                                                                                    <div>
+                                                                                        <div class="flex-shrink-0">
+                                                                                            <div class="avatar-xl me-3">
+                                                                                                <% if(getUser.bike.bikePaper.value){ %>
+                                                                                                    <a href="data:<%= getUser.bike.bikePaper.mimeType %>;base64, <%= getUser.bike.bikePaper.value %>" download="">
+                                                  <img src="data:<%= getUser.bike.bikePaper.mimeType %>;base64, <%= getUser.bike.bikePaper.value %>" alt="user" alt="" class="img-fluid rounded-circle d-block">
+                                                </a>
+                                                                                                    <% }else{ %>
+                                                                                                        <img src="/img/avatar.jpg" alt="" class="img-fluid rounded-circle d-block">
+                                                                                                        <% } %>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="py-2">
+                                                                            <div class="row">
+                                                                                <div class="col-xl-2">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-12 text-muted">Rider Driver's License :</h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-xl">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-18">
+                                                                                            <%= getUser.bike.riderDriverLicense %>
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="py-2">
+                                                                            <div class="row">
+                                                                                <div class="col-xl-2">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-12 text-muted">Rider Card Detail :</h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-xl">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-18">Year:
+                                                                                            <%= getUser.bike.riderCardDetails.year %>, Month:
+                                                                                                <%= getUser.bike.riderCardDetails.month %>, Day:
+                                                                                                    <%= getUser.bike.riderCardDetails.day %>
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="py-2">
+                                                                            <div class="row">
+                                                                                <div class="col-xl-2">
+                                                                                    <div>
+                                                                                        <h5 class="font-size-12 text-muted">Local Government Paper :</h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-xl">
+                                                                                    <div>
+                                                                                        <div class="flex-shrink-0">
+                                                                                            <div class="avatar-xl me-3">
+                                                                                                <% if(getUser.bike.localGovernmentPaper.value){ %>
+                                                                                                    <a href="data:image/<%=getUser.bike.localGovernmentPaper.mimeType%>;base64, <%=getUser.bike.localGovernmentPaper.value%>" download="">
+                                                  <img src="data:image/<%=getUser.bike.localGovernmentPaper.mimeType %>;base64, <%=getUser.bike.localGovernmentPaper.value%>" alt="user" alt="" class="img-fluid rounded-circle d-block">
+                                                </a>
+                                                                                                    <% }else{ %>
+                                                                                                        <img src="/img/avatar.jpg" alt="" class="img-fluid rounded-circle d-block">
+                                                                                                        <% } %>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <!-- end card body -->
+                                                            </div>
+                                                            <!-- end card -->
+                                                        </div>
+
+                                                        <div class="tab-pane" id="trip" role="tabpanel">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <h4 class="card-title">Trip History</h4>
+                                                                    <div class="table-responsive">
+                                                                        <table id="" class="table table-bordered dt-responsive  nowrap w-100">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>Description</th>
+                                                                                    <th>Price</th>
+                                                                                    <th>ETA</th>
+                                                                                    <th>Status</th>
+                                                                                    <th>Made On</th>
+                                                                                    <th>Actions</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <% trips.forEach(function(trip) { let num=trip.price %>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <%= sn++ %>
+                                                                                        </td>
+                                                                                        <td><b>
+                                              <%= trip.description %>
+                                            </b></td>
+                                                                                        <td>
+                                                                                            <b>₦<%= (num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></b>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <%= trip.ETA.text %>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <%if(trip.status==='Completed' || trip.status==='Accepted'){ %>
+                                                                                                <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                              <%= trip.status %>
+                                            </button>
+                                                                                                <% } else if(trip.status==='Pending' || trip.status==='Ongoing'){ %>
+                                                                                                    <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                              <%= trip.status %>
+                                            </button>
+                                                                                                    <% } else if(trip.status==='Blocked' || trip.status==='Cancelled'){ %>
+                                                                                                        <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                                              <%= trip.status %>
+                                            </button>
+                                                                                                        <% } %>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <%= moment(trip.createdAt).format('Do MMMM, YYYY') %>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a class="btn btn-soft-success waves-effect waves-light" href="/rider-trip-detail/<%= getUser.id %>/<%= trip.id %>">View</a>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <div class="modal fade" id="exampleModal<%= trip.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                        <div class="modal-dialog modal-lg" role="document">
+                                                                                            <div class="modal-content">
+                                                                                                <div class="modal-header">
+                                                                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                                                                        Trip Details</h5>
+                                                                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                                                                </div>
+                                                                                                <div class="modal-body">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-4">
+                                                                                                            <h3>User Details
+                                                                                                            </h3>
+
+                                                                                                            <div class="pb-0">
+                                                                                                                <img src="/images/faces/face12.jpg" alt="profile" class="img-lg rounded-circle mb-3" />
+                                                                                                            </div>
+                                                                                                            <div class="py-2">
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Name:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%= getUser.fullName %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Email
+                                                          Address:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%= getUser.email.value %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Phone
+                                                          Number:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%= getUser.mobile.value %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Rider's Status:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%if(getUser.status.trip ==='Online' ){ %>
+                                                          <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                                            <%= getUser.status.trip %>
+                                                          </button>
+                                                          <% } else{ %>
+                                                          <button class="btn btn-soft-danger waves-effect waves-light btn-sm">
+                                                            <%= getUser.status.trip %>
+                                                          </button>
+                                                          <% } %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Account Status:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%if(getUser.status.account==='Approved' ){ %>
+                                                          <button class="btn btn-soft-success waves-effect waves-light btn-sm">
+                                                            <%= getUser.status.account %>
+                                                          </button>
+                                                          <% } else if(getUser.status.account==='Pending' ){ %>
+                                                          <button class="btn btn-soft-primary waves-effect waves-light btn-sm">
+                                                            <%= getUser.status.account %>
+                                                          </button>
+                                                          <% } else if(getUser.status.account==='Blocked' || getUser.status.account==='Deleted'){ %>
+                                                          <button class="btn btn-soft-danger waves-effect waves-light btn-sm">
+                                                            <%= getUser.status.account %>
+                                                          </button>
+                                                          <% } %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-4">
+                                                                                                            <h3>Trip Details
+                                                                                                            </h3>
+                                                                                                            <div class="py-2">
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Description:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%= trip.description %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          ETA:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%= trip.ETA.text %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Payment Type:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                                            <%= trip.paymentType %>
+                                                          </button>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Price:
+                                                        </span>
+                                                                                                                    <span class="float-right text-success">
+                                                          <%= trip.price %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Status:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%if(trip.status==='Completed' || trip.status==='Accepted'){ %>
+                                                          <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                                            <%= trip.status %>
+                                                          </button>
+                                                          <% } else if(trip.status==='Pending' ||  trip.status==='Ongoing' ){ %>
+                                                          <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                                            <%= trip.status %>
+                                                          </button>
+                                                          <% } else if(trip.status==='Blocked' || trip.status==='Cancelled'){ %>
+                                                          <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                                                            <%= trip.status %>
+                                                          </button>
+                                                          <% } %>
+                                                        </span>
+                                                                                                                </p>
+
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Payment Status:
+                                                        </span>
+                                                                                                                    <span class="float-right">
+                                                          <%if(trip.paymentStatus==='Paid'){ %>
+                                                          <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                                            <%= trip.paymentStatus %>
+                                                          </button>
+                                                          <% } else{ %>
+                                                          <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                                                            <%= trip.paymentStatus %>
+                                                          </button>
+                                                          <% } %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          From:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%= trip.origin.text %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          To:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%= trip.destination.text %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Distance:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%= trip.distance.text %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Booked
+                                                          On:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%= moment(trip.createdAt).format('Do MMMM,YYYY') %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-4">
+                                                                                                            <h3>Rider Details
+                                                                                                            </h3>
+
+                                                                                                            <div class="pb-0">
+                                                                                                                <img src="/images/faces/face12.jpg" alt="profile" class="img-lg rounded-circle mb-3" />
+                                                                                                            </div>
+                                                                                                            <div class="py-2">
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Name:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%= trip.riderData.name
+                                                                                                                    %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Email
+                                                          Address:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%= trip.riderData.email %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                                <p class="clearfix">
+                                                                                                                    <span class="float-left">
+                                                          Phone
+                                                          Number:
+                                                        </span>
+                                                                                                                    <span class="float-right text-muted">
+                                                          <%= trip.riderData.mobile  %>
+                                                        </span>
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="modal-footer">
+                                                                                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <!-- Modal Ends -->
+                                                                                    <% }); %>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="tab-pane" id="transaction" role="tabpanel">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <h4 class="card-title">Transactions History</h4>
+                                                                    <div class="table-responsive">
+                                                                        <table id="" class="table table-bordered dt-responsive  nowrap w-100">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>Trip ID</th>
+                                                                                    <th>Price</th>
+                                                                                    <th>Status</th>
+                                                                                    <th>Payment Status</th>
+                                                                                    <th>Payment Type</th>
+                                                                                    <th>Made On</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <% userTransactions.forEach(function(trip) { let num=trip.price %>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <%= sn2++ %>
+                                                                                        </td>
+                                                                                        <td><b>
+                                              <%= trip.tripId %>
+                                            </b></td>
+                                                                                        <td>
+                                                                                            <b>₦<%= (num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></b>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <%if(trip.status==='Completed'){ %>
+                                                                                                <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                              <%= trip.status %>
+                                            </button>
+                                                                                                <% } else{ %>
+                                                                                                    <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                              <%= trip.status %>
+                                            </button>
+                                                                                                    <% } %>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <%if(trip.paymentStatus==='Paid'){ %>
+                                                                                                <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                              <%= trip.paymentStatus %>
+                                            </button>
+                                                                                                <% } else{ %>
+                                                                                                    <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                              <%= trip.paymentStatus %>
+                                            </button>
+                                                                                                    <% } %>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                              <%= trip.paymentType %>
+                                            </button>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <%= moment(trip.createdAt).format('Do MMMM, YYYY') %>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <% }); %>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- end card -->
+                                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <!-- End Page-content -->
+                    </div>
+                    <!-- end main content-->
+
+        </div>
+
+        <%- include("../partials/footer") %>
+            <div class="rightbar-overlay"></div>
+            <%- include("../partials/script") %>
+    </body>
+
+    <script>
+        $(document).ready(function() {
+            $('table.table-bordered').DataTable();
+        });
+    </script>
+    <!-- Mirrored from themesbrand.com/minia/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Sep 2021 12:48:41 GMT -->
+
+    </html>

@@ -1,0 +1,114 @@
+body {
+    background-color: #354152;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container {
+    background-color: #354152;
+    align-items: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.align {
+    align-items: center;
+    color: #fff;
+    text-align: center;
+}
+
+.error {
+    text-align: center;
+    color: rgb(255 57 57);
+}
+.success {
+    text-align: center;
+    color:green;
+}
+
+.btn {
+    background-color: rgb(86 188 83);
+    color: #000;
+    margin-bottom: 6rem;
+    font-size: 20px;
+    font-weight: 600;
+    width: 100%;
+    border: 1px solid #242c37;
+    line-height: 2.375rem;
+    min-height: 3.375rem;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.form-input,
+.login-button {
+    border: 1px solid #242c37;
+    border-radius: 999px;
+    background-color: transparent;
+    text-align: center;
+    font-size: 20px;
+    outline: 0;
+    padding: .5rem 1rem;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000 !important;
+    line-height: 2.375rem;
+    min-height: 3.375rem;
+    position: relative;
+    border-radius: 30px;
+    background: #fff;
+    padding: 0 0.8125rem;
+    width: 100%;
+    transition: border .1s ease;
+    box-sizing: border-box;
+}
+
+.my-form-group {
+    margin-top: 40px;
+    /* margin-bottom: 40px; */
+    text-align: center;
+}
+
+.login-button {
+    background-color: rgb(86 188 83);
+    color: #000;
+}
+
+.login-h1 {
+    color: #fff;
+}
+
+.forget-password {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.forget-password a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.forget-password a:hover {
+    text-decoration: none;
+    color: #000;
+    font-weight: bolder;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+.container {
+    background-color: #354152;
+    align-items: center;
+    display: table;
+    padding-top: 4.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}

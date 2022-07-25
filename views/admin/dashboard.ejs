@@ -1,0 +1,391 @@
+<%- include("./partials/header") %>
+
+<body>
+
+  <!-- <body data-layout="horizontal"> -->
+
+  <!-- Begin page -->
+  <div id="layout-wrapper">
+    <%- include("./partials/top-nav") %>
+    <%- include("./partials/sidemenu") %>
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+      <div class="page-content">
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">Dashboard</h4>
+
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                  </ol>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- end page title -->
+
+          <div class="row">
+          
+            <div class="col-xl-3 col-md-3">
+              <!-- card -->
+              <div class="card card-h-100">
+                <!-- card body -->
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-12">
+                      <span class="text-muted mb-3 lh-1 d-block text-truncate">Total Number of Fleet Owners</span>
+                      <h4 class="mb-3">
+                        <span class="counter-value" data-target="<%= fleetCount %>"></span>
+                      </h4>
+                    </div>
+                  </div>
+                </div><!-- end card body -->
+              </div><!-- end card -->
+            </div><!-- end col -->
+
+
+            <div class="col-xl-3 col-md-3">
+              <!-- card -->
+              <div class="card card-h-100">
+                <!-- card body -->
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-12">
+                      <span class="text-muted mb-3 lh-1 d-block text-truncate">Total Number of Riders</span>
+                      <h4 class="mb-3">
+                        <span class="counter-value" data-target="<%= riderCount %>"></span>
+                      </h4>
+                    </div>
+                  </div>
+                </div><!-- end card body -->
+              </div><!-- end card -->
+            </div><!-- end col -->
+
+            <div class="col-xl-3 col-md-3">
+              <!-- card -->
+              <div class="card card-h-100">
+                <!-- card body -->
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-12">
+                      <span class="text-muted mb-3 lh-1 d-block text-truncate">Total Number of Users</span>
+                      <h4 class="mb-3">
+                        <span class="counter-value" data-target="<%= userCount %>"></span>
+                      </h4>
+                    </div>
+                  </div>
+                </div><!-- end card body -->
+              </div><!-- end card -->
+            </div><!-- end col -->
+            <div class="col-xl-3 col-md-3">
+              <!-- card -->
+              <div class="card card-h-100">
+                <!-- card body -->
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-12">
+                      <span class="text-muted mb-3 lh-1 d-block text-truncate">Total Number of Trips</span>
+                      <h4 class="mb-3">
+                        <span class="counter-value" data-target="<%= tripCount %>"></span>
+                      </h4>
+                    </div>
+                  </div>
+                </div><!-- end card body -->
+              </div><!-- end card -->
+            </div><!-- end col -->
+
+            <!--
+            <div class="col-xl-3 col-md-3">
+              <div class="card card-h-100">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-12">
+                      <span class="text-muted mb-3 lh-1 d-block text-truncate">Total Transactions</span>
+                      <h4 class="mb-3">
+                        <span class="counter-value" data-target="<%= transactionsCount %>"></span>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            -->
+
+          </div>
+
+          <!--
+          <div class="col-xl-5">
+            <div class="card card-h-100">
+              <div class="card-body">
+                <div class="d-flex flex-wrap align-items-center mb-4">
+                  <h5 class="card-title me-2">Wallet Balance</h5>
+                </div>
+
+                <div class="row align-items-center">
+                  <div class="col-sm">
+                    <div id="wallet-balance" data-colors='["#777aca", "#5156be", "#a8aada"]' class="apex-charts"></div>
+                  </div>
+                  <div class="col-sm align-self-center">
+                    <div class="mt-4 mt-sm-0">
+                      <div>
+                        <p class="mb-2"><i class="mdi mdi-circle align-middle font-size-10 me-2 text-success"></i> Bitcoin</p>
+                        <h6>0.4412 BTC = <span class="text-muted font-size-14 fw-normal">$ 4025.32</span></h6>
+                      </div>
+
+                      <div class="mt-4 pt-2">
+                        <p class="mb-2"><i class="mdi mdi-circle align-middle font-size-10 me-2 text-primary"></i> Ethereum</p>
+                        <h6>4.5701 ETH = <span class="text-muted font-size-14 fw-normal">$ 1123.64</span></h6>
+                      </div>
+
+                      <div class="mt-4 pt-2">
+                        <p class="mb-2"><i class="mdi mdi-circle align-middle font-size-10 me-2 text-info"></i> Litecoin</p>
+                        <h6>35.3811 LTC = <span class="text-muted font-size-14 fw-normal">$ 2263.09</span></h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          -->
+
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">Recent Registered</h4>
+                <div class="flex-shrink-0">
+                  <ul class="nav justify-content-end nav-tabs-custom rounded card-header-tabs" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" data-bs-toggle="tab" href="#fleet-owner" role="tab">
+                        Fleet Owner
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-bs-toggle="tab" href="#rider" role="tab">
+                        Rider
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-bs-toggle="tab" href="#user" role="tab">
+                        User
+                      </a>
+                    </li>
+                  </ul>
+                  <!-- end nav tabs -->
+                </div>
+              </div><!-- end card header -->
+
+              <div class="card-body px-0">
+                <div class="tab-content">
+                  <div class="tab-pane active" id="fleet-owner" role="tabpanel">
+                    <div class="table-responsive px-3" data-simplebar style="max-height: 352px;">
+                      <table class="table table-responsive">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Status</th>
+                            <th>Registered On</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          <% fleets.forEach(function(user) { %>
+                          <tr>
+                            <td><%= sn++ %></td>
+                            <td>
+                              <h5 class="font-size-14 mb-1"><%= user.email.value %></h5>
+                            </td>
+                            <td><%= user.mobile.value %></td>
+                            <td>
+                              <%if(user.status ==='Approved' ){ %>
+                              <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                <%= user.status %>
+                              </button>
+                              <% } else if(user.status ==='Pending' ){ %>
+                              <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                <%= user.status %>
+                              </button>
+                              <% } else if(user.status ==='Blocked' || user.status ==='Deleted'){ %>
+                              <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                                <%= user.status %>
+                              </button>
+                              <% } %>
+                            </td>
+                            <td><%= moment(user.createdAt).format('Do MMMM, YYYY') %></td>
+                            <td>
+                              <a href="/view-fleet/<%= user.id %>" class="btn btn-soft-success waves-effect waves-light"><i class="fa fa-eye font-size-16 align-middle"></i></a>
+                            </td>
+                          </tr>
+                          <% }); %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- end tab pane -->
+                  <div class="tab-pane" id="user" role="tabpanel">
+                    <div class="table-responsive px-3" data-simplebar style="max-height: 352px;">
+                      <table class="table table-responsive">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Status</th>
+                            <th>Registered On</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          <% users.forEach(function(user) { %>
+                          <tr>
+                            <td><%= snn++ %></td>
+                            <td class="py-1">
+                              <% if(user.profilePicture.value){ %>
+                              <img src="data:<%= user.profilePicture.mimeType %>;base64, <%= user.profilePicture.value %>" alt="user" class="rounded-circle header-profile-user">
+                              <% }else{ %>
+                              <img src="/img/avatar.jpg" alt="user" class="rounded-circle header-profile-user">
+                              <% } %>
+                            </td>
+                            <td>
+                              <h5 class="font-size-14 mb-1"><%= user.email.value %></h5>
+                            </td>
+                            <td><%= user.mobile.value %></td>
+                            <td>
+
+                              <%if(user.status==='Active' ){ %>
+                              <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                <%= user.status %>
+                              </button>
+                              <% } else{ %>
+                              <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                                <%= user.status %>
+                              </button>
+                              <% } %>
+                            </td>
+                            <td><%= moment(user.createdAt).format('Do MMMM, YYYY') %></td>
+                            <td>
+                              <a href="/view-user/<%= user.id %>" class="btn btn-soft-success waves-effect waves-light"><i class="fa fa-eye font-size-16 align-middle"></i></a>
+                            </td>
+                          </tr>
+                          <% }); %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- end tab pane -->
+
+                  <div class="tab-pane" id="rider" role="tabpanel">
+                    <div class="table-responsive px-3" data-simplebar style="max-height: 352px;">
+                      <table class="table table-responsive">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Rider</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Account Status</th>
+                            <th>Rider's Status</th>
+                            <th>Registered On</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% riders.forEach(function(user) { %>
+                          <tr>
+                            <td><%= snnn++ %></td>
+                            <td class="py-1">
+                              <% if(user.profilePicture.value){ %>
+                              <img src="data:<%= user.profilePicture.mimeType %>;base64, <%= user.profilePicture.value %>" alt="user" class="rounded-circle header-profile-user">
+                              <% }else{ %>
+                              <img src="/img/avatar.jpg" alt="user" class="rounded-circle header-profile-user">
+                              <% } %>
+                            </td>
+                            <td>
+                              <h5 class="font-size-14 mb-1"><%= user.email.value %></h5>
+                            </td>
+                            <td><%= user.mobile.value %></td>
+                            <td>
+
+                              <%if(user.status.trip ==='Online' ){ %>
+                              <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                <%= user.status.trip %>
+                              </button>
+                              <% } else if(user.status.trip ==='Offline' ){ %>
+                              <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                                <%= user.status.trip %>
+                              </button>
+                              <% } %>
+                            </td>
+                            <td>
+
+                              <%if(user.status.account ==='Approved' ){ %>
+                              <button class="btn btn-soft-success waves-effect waves-light btn-rounded">
+                                <%= user.status.account %>
+                              </button>
+                              <% } else if(user.status.account ==='Pending' ){ %>
+                              <button class="btn btn-soft-primary waves-effect waves-light btn-rounded">
+                                <%= user.status.account %>
+                              </button>
+                              <% } else if(user.status.account ==='Blocked' || user.status.account ==='Deleted'){ %>
+                              <button class="btn btn-soft-danger waves-effect waves-light btn-rounded">
+                                <%= user.status.account %>
+                              </button>
+                              <% } %>
+                            </td>
+                            <td><%= moment(user.createdAt).format('Do MMMM, YYYY') %></td>
+                            <td>
+                              <a href="/view-rider/<%= user.id %>" class="btn btn-soft-success waves-effect waves-light"><i class="fa fa-eye font-size-16 align-middle"></i></a>
+                            </td>
+                          </tr>
+                          <% }); %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!-- end tab content -->
+              </div>
+              <!-- end card body -->
+            </div>
+            <!-- end card -->
+          </div>
+        </div>
+        <!-- container-fluid -->
+      </div>
+      <!-- End Page-content -->
+    </div>
+    <!-- end main content-->
+
+  </div>
+  <!-- END layout-wrapper -->
+
+
+  <!-- Right Sidebar -->
+  <!-- /Right-bar -->
+
+  <%- include("./partials/footer") %>
+  <!-- Right bar overlay-->
+  <div class="rightbar-overlay"></div>
+
+  <%- include("./partials/script") %>
+</body>
+
+
+<!-- Mirrored from themesbrand.com/minia/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Sep 2021 12:48:41 GMT -->
+
+</html>
